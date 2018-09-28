@@ -1,0 +1,26 @@
+{
+    "name": "railken/amethyst-skeleton",
+    "keywords": ["laravel"],
+    "license": "MIT",
+    "require": {
+        "php": ">=7.1"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^0.10",
+        "phpunit/phpunit": "~7.1",
+        "friendsofphp/php-cs-fixer": "^2.8.1"
+    },
+    "autoload": {
+        "psr-4" : {
+            "Railken\\Amethyst\\Skeleton\\" : "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": { 
+            "Railken\\Amethyst\\Skeleton\\Tests\\": "tests/" 
+        }
+    },
+    "bin": [
+        "amethyst-skeleton"
+    ]
+}
