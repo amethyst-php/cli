@@ -6,7 +6,7 @@ use Faker\Factory;
 use Railken\Bag;
 use Railken\Lem\Faker;
 
-class FooFaker extends Faker
+class FooBarFaker extends Faker
 {
     /**
      * @return \Railken\Bag

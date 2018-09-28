@@ -9,7 +9,6 @@ class CommandTest extends BaseTest
         \Railken\Amethyst\Skeleton\Command::main([
             null,
             'test',
-            'Test',
         ]);
     }
 }

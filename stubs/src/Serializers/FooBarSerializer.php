@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 use Railken\Lem\Contracts\EntityContract;
 use Railken\Lem\Serializer;
 
-class FooSerializer extends Serializer
+class FooBarSerializer extends Serializer
 {
     /**
      * Serialize entity.

@@ -5,7 +5,7 @@ namespace Railken\Amethyst\Managers;
 use Illuminate\Support\Facades\Config;
 use Railken\Lem\Manager;
 
-class FooManager extends Manager
+class FooBarManager extends Manager
 {
     /**
      * Describe this manager.
@@ -19,6 +19,6 @@ class FooManager extends Manager
      */
     public function registerClasses()
     {
-        return Config::get('amethyst.foo.managers.foo');
+        return Config::get('amethyst.foo-bar.managers.foo-bar');
     }
 }

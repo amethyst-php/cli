@@ -4,9 +4,9 @@ namespace Railken\Amethyst\Http\Controllers\Admin;
 
 use Railken\Amethyst\Api\Http\Controllers\RestManagerController;
 use Railken\Amethyst\Api\Http\Controllers\Traits as RestTraits;
-use Railken\Amethyst\Managers\FooManager;
+use Railken\Amethyst\Managers\FooBarManager;
 
-class FoosController extends RestManagerController
+class FooBarsController extends RestManagerController
 {
     use RestTraits\RestIndexTrait;
     use RestTraits\RestShowTrait;
@@ -19,5 +19,5 @@ class FoosController extends RestManagerController
      *
      * @var string
      */
-    public $class = FooManager::class;
+    public $class = FooBarManager::class;
 }

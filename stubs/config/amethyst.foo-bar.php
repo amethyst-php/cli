@@ -11,7 +11,7 @@ return [
     |
     */
     'managers' => [
-        'foo' => [
+        'foo-bar' => [
             /*
             |--------------------------------------------------------------------------
             | Table Name
@@ -20,7 +20,7 @@ return [
             | This is the table name used while interacting with the database
             |
             */
-            'table' => 'amethyst_foos',
+            'table' => 'amethyst_foo_bars',
 
             /*
             |--------------------------------------------------------------------------
@@ -31,7 +31,7 @@ return [
             | Change this if you have to add more relations or custom logic.
             |
             */
-            'model' => Railken\Amethyst\Models\Foo::class,
+            'model' => Railken\Amethyst\Models\FooBar::class,
 
             /*
             |--------------------------------------------------------------------------
@@ -41,7 +41,7 @@ return [
             | The class of the schema used by the manager.
             | Change this if you want to update the attributes.
             */
-            'schema' => Railken\Amethyst\Schemas\FooSchema::class,
+            'schema' => Railken\Amethyst\Schemas\FooBarSchema::class,
 
             /*
             |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return [
             | Change this if you have to add more complex queries (e.g. ::findOneBy).
             |
             */
-            'repository' => Railken\Amethyst\Repositories\FooRepository::class,
+            'repository' => Railken\Amethyst\Repositories\FooBarRepository::class,
 
             /*
             |--------------------------------------------------------------------------
@@ -63,7 +63,7 @@ return [
             | Change this if you have to add more data while serializing.
             |
             */
-            'serializer' => Railken\Amethyst\Serializers\FooSerializer::class,
+            'serializer' => Railken\Amethyst\Serializers\FooBarSerializer::class,
 
             /*
             |--------------------------------------------------------------------------
@@ -75,7 +75,7 @@ return [
             | A validation handled by the single attributes is always preferred to this.
             |
             */
-            'validator' => Railken\Amethyst\Validators\FooValidator::class,
+            'validator' => Railken\Amethyst\Validators\FooBarValidator::class,
 
             /*
             |--------------------------------------------------------------------------
@@ -86,7 +86,7 @@ return [
             | Change this if you have to add more complex authorization.
             |
             */
-            'authorizer' => Railken\Amethyst\Authorizers\FooAuthorizer::class,
+            'authorizer' => Railken\Amethyst\Authorizers\FooBarAuthorizer::class,
         ],
     ],
 
@@ -100,12 +100,12 @@ return [
     */
     'http' => [
         'admin' => [
-            'foo' => [
+            'foo-bar' => [
                 'enabled'     => true,
-                'controller'  => Railken\Amethyst\Http\Controllers\Admin\FoosController::class,
+                'controller'  => Railken\Amethyst\Http\Controllers\Admin\FooBarsController::class,
                 'router'      => [
-                    'as'        => 'foo.',
-                    'prefix'    => '/foos',
+                    'as'        => 'foo-bar.',
+                    'prefix'    => '/foo-bars',
                 ],
             ],
         ],

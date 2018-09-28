@@ -2,12 +2,12 @@
 
 namespace Railken\Amethyst\Tests\Managers;
 
-use Railken\Amethyst\Fakers\FooFaker;
-use Railken\Amethyst\Managers\FooManager;
+use Railken\Amethyst\Fakers\FooBarFaker;
+use Railken\Amethyst\Managers\FooBarManager;
 use Railken\Amethyst\Tests\BaseTest;
 use Railken\Lem\Support\Testing\TestableBaseTrait;
 
-class FooTest extends BaseTest
+class FooBarTest extends BaseTest
 {
     use TestableBaseTrait;
 
@@ -16,12 +16,12 @@ class FooTest extends BaseTest
      *
      * @var string
      */
-    protected $manager = FooManager::class;
+    protected $manager = FooBarManager::class;
 
     /**
      * Faker class.
      *
      * @var string
      */
-    protected $faker = FooFaker::class;
+    protected $faker = FooBarFaker::class;
 }

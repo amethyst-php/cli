@@ -4,10 +4,10 @@ namespace Railken\Amethyst\Tests\Http\Admin;
 
 use Illuminate\Support\Facades\Foo;
 use Railken\Amethyst\Api\Support\Testing\TestableBaseTrait;
-use Railken\Amethyst\Fakers\FooFaker;
+use Railken\Amethyst\Fakers\FooBarFaker;
 use Railken\Amethyst\Tests\BaseTest;
 
-class FooTest extends BaseTest
+class FooBarTest extends BaseTest
 {
     use TestableBaseTrait;
 
@@ -16,7 +16,7 @@ class FooTest extends BaseTest
      *
      * @var string
      */
-    protected $faker = FooFaker::class;
+    protected $faker = FooBarFaker::class;
 
     /**
      * Router group resource.
@@ -30,5 +30,5 @@ class FooTest extends BaseTest
      *
      * @var string
      */
-    protected $config = 'amethyst.foo.http.admin.foo';
+    protected $config = 'amethyst.foo-bar.http.admin.foo-bar';
 }

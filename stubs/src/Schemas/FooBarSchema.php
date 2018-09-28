@@ -2,11 +2,10 @@
 
 namespace Railken\Amethyst\Schemas;
 
-use Railken\Amethyst\Models\Foo;
 use Railken\Lem\Attributes;
 use Railken\Lem\Schema;
 
-class FooSchema extends Schema
+class FooBarSchema extends Schema
 {
     /**
      * Get all the attributes.

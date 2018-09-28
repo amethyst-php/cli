@@ -4,6 +4,6 @@ namespace Railken\Amethyst\Repositories;
 
 use Railken\Lem\Repository;
 
-class FooRepository extends Repository
+class FooBarRepository extends Repository
 {
 }

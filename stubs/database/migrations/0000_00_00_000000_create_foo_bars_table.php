@@ -5,16 +5,16 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFoosTable extends Migration
+class CreateFooBarsTable extends Migration
 {
     /**
      * Run the migrations.
      */
     public function up()
     {
-        Schema::create(Config::get('amethyst.foo.managers.foo.table'), function (Blueprint $table) {
+        Schema::create(Config::get('amethyst.foo-bar.managers.foo-bar.table'), function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique(),
+            $table->string('name')->unique();
             $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -26,6 +26,6 @@ class CreateFoosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(Config::get('amethyst.foo.managers.foo.table'));
+        Schema::dropIfExists(Config::get('amethyst.foo-bar.managers.foo-bar.table'));
     }
 }
