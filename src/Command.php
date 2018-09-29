@@ -32,9 +32,11 @@ class Command
 
         $source = __DIR__.'/../stubs';
 
-        $files = self::rglob($source.'/*');
+        $files = self::rglob($source.'/{,.}[!.,!..]*', GLOB_MARK | GLOB_BRACE);
 
         $destination = getcwd().'/amethyst-'.$package;
+
+        print_r("\n\nGenerating...\n");
 
         foreach ($files as $file) {
             if (!is_dir($file)) {
@@ -50,6 +52,8 @@ class Command
                 }
 
                 file_put_contents($to, $content);
+
+                print_r(sprintf("Generated: %s \n", $to));
             }
         }
     }
