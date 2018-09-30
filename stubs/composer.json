@@ -25,7 +25,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Railken\\Amethyst\\Providers\\FooServiceProvider"
+                "Railken\\Amethyst\\Providers\\FooBarServiceProvider"
             ]
         }
     }
