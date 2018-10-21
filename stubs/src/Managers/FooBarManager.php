@@ -2,23 +2,15 @@
 
 namespace Railken\Amethyst\Managers;
 
-use Illuminate\Support\Facades\Config;
+use Railken\Amethyst\Common\ConfigurableManager;
 use Railken\Lem\Manager;
 
 class FooBarManager extends Manager
 {
-    /**
-     * Describe this manager.
-     *
-     * @var string
-     */
-    public $comment = '...';
+    use ConfigurableManager;
 
     /**
-     * Register Classes.
+     * @var string
      */
-    public function registerClasses()
-    {
-        return Config::get('amethyst.foo-bar.managers.foo-bar');
-    }
+    protected $config = 'amethyst.foo-bar.data.foo-bar';
 }
