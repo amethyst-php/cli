@@ -9,7 +9,7 @@ return [
     | Here you can change the table name and the class components.
     |
     */
-    'managers' => [
+    'data' => [
         'foo-bar' => [
             'table' => 'amethyst_foo_bars',
             'comment' => 'foo-bar',

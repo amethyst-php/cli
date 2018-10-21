@@ -12,7 +12,7 @@ class CreateFooBarsTable extends Migration
      */
     public function up()
     {
-        Schema::create(Config::get('amethyst.foo-bar.managers.foo-bar.table'), function (Blueprint $table) {
+        Schema::create(Config::get('amethyst.foo-bar.data.foo-bar.table'), function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
             $table->text('description')->nullable();
@@ -26,6 +26,6 @@ class CreateFooBarsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(Config::get('amethyst.foo-bar.managers.foo-bar.table'));
+        Schema::dropIfExists(Config::get('amethyst.foo-bar.data.foo-bar.table'));
     }
 }
