@@ -30,6 +30,8 @@ class Command
     {
         $package = $argv[1];
 
+        $package = str_replace('_', '-', $this->inflector->tableize($this->inflector->classify($package)));
+
         $source = __DIR__.'/../stubs';
 
         $files = self::rglob($source.'/{,.}[!.,!..]*', GLOB_MARK | GLOB_BRACE);
