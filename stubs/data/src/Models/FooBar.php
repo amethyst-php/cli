@@ -18,7 +18,7 @@ class FooBar extends Model implements EntityContract
      */
     public function __construct(array $attributes = [])
     {
-        $this->ini('amethyst.foo-bar.data.foo-bar');
+        $this->ini('amethyst.package-name.data.foo-bar');
         parent::__construct($attributes);
     }
 

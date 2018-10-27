@@ -6,17 +6,53 @@ use Doctrine\Common\Inflector\Inflector;
 
 class Command
 {
+    /**
+     * @var \Doctrine\Common\Inflector\Inflector
+     */
     public $inflector;
 
-    public static function main(array $argv = [])
+    /**
+     * @var string
+     */
+    public $destination;
+
+    /**
+     * @param array  $argv
+     * @param string $destination
+     */
+    public static function main(array $argv = [], string $destination)
     {
         $command = new static();
         $command->inflector = new Inflector();
 
-        $command->handle($argv);
+        $command->destination = $destination ? $destination : getcwd();
+
+        if (!isset($argv[1]) || !isset($argv[2])) {
+            throw new \InvalidArgumentException('Missing parameter');
+        }
+
+        if ($argv[1] === 'new') {
+            $command->handlePackage($command->parseParam($argv[2]));
+        }
+
+        if ($argv[1] === 'data') {
+            if (!isset($argv[3])) {
+                throw new \InvalidArgumentException('Missing parameter');
+            }
+
+            $command->handleData($command->parseParam($argv[2]), $command->parseParam($argv[3]));
+        }
     }
 
-    public function rglob($pattern, $flags = 0)
+    /**
+     * Recursive glob.
+     *
+     * @param string $pattern
+     * @param int    $flags
+     *
+     * @return array
+     */
+    public function rglob(string $pattern, int $flags = 0): array
     {
         $files = glob($pattern, $flags);
         foreach (glob(dirname($pattern).'/*', GLOB_ONLYDIR | GLOB_NOSORT) as $dir) {
@@ -26,26 +62,61 @@ class Command
         return $files;
     }
 
-    public function handle(array $argv = [])
+    /**
+     * Parse parameter.
+     *
+     * @param string $param
+     *
+     * @return string
+     */
+    public function parseParam(string $param): string
     {
-        $package = $argv[1];
+        return str_replace('_', '-', $this->inflector->tableize($this->inflector->classify($param)));
+    }
 
-        $package = str_replace('_', '-', $this->inflector->tableize($this->inflector->classify($package)));
+    /**
+     * Handle the incoming request.
+     *
+     * @string $package
+     */
+    public function handlePackage(string $package)
+    {
+        $destination = $this->destination.'/amethyst-'.$package;
 
-        $source = __DIR__.'/../stubs';
+        $this->generateNewFiles([
+            'package-name' => $package,
+        ], __DIR__.'/../stubs/package', $destination);
+    }
 
+    /**
+     * Handle the incoming request.
+     *
+     * @string $package
+     * @string $data
+     */
+    public function handleData(string $package, string $data)
+    {
+        $destination = $this->destination;
+
+        $this->generateNewFiles([
+            'package-name' => $package,
+            'foo-bar'      => $data,
+        ], __DIR__.'/../stubs/data', $destination);
+    }
+
+    public function generateNewFiles(array $replace, string $source, string $destination)
+    {
         $files = self::rglob($source.'/{,.}[!.,!..]*', GLOB_MARK | GLOB_BRACE);
-
-        $destination = getcwd().'/amethyst-'.$package;
-
-        print_r("\n\nGenerating...\n");
 
         foreach ($files as $file) {
             if (!is_dir($file)) {
                 $content = file_get_contents($file);
+                $newfile = str_replace($source, '', $file);
 
-                $content = self::replace($package, $content);
-                $newfile = self::replace($package, str_replace($source, '', $file));
+                foreach ($replace as $key => $value) {
+                    $content = self::replace($key, $value, $content);
+                    $newfile = self::replace($value, $value, $newfile);
+                }
 
                 $to = $destination.$newfile;
 
@@ -60,15 +131,22 @@ class Command
         }
     }
 
-    public function replace(string $package, string $content)
+    public function replace(string $from, string $to, string $content)
     {
-        $content = str_replace('foo_bars', $this->inflector->pluralize($this->inflector->tableize($package)), $content);
-        $content = str_replace('foo_bar', $this->inflector->tableize($package), $content);
-        $content = str_replace('foo-bars', str_replace('_', '-', $this->inflector->pluralize($this->inflector->tableize($package))), $content);
-        $content = str_replace('foo-bar', str_replace('_', '-', $this->inflector->tableize($package)), $content);
-        $content = str_replace('FooBars', $this->inflector->pluralize($this->inflector->classify($package)), $content);
-        $content = str_replace('FooBar', $this->inflector->classify($package), $content);
-
-        return $content;
+        return str_replace([
+            $this->inflector->pluralize($this->inflector->tableize($from)),
+            $this->inflector->tableize($from),
+            str_replace('_', '-', $this->inflector->pluralize($this->inflector->tableize($from))),
+            str_replace('_', '-', $this->inflector->tableize($from)),
+            $this->inflector->pluralize($this->inflector->classify($from)),
+            $this->inflector->classify($from),
+        ], [
+            $this->inflector->pluralize($this->inflector->tableize($to)),
+            $this->inflector->tableize($to),
+            str_replace('_', '-', $this->inflector->pluralize($this->inflector->tableize($to))),
+            str_replace('_', '-', $this->inflector->tableize($to)),
+            $this->inflector->pluralize($this->inflector->classify($to)),
+            $this->inflector->classify($to),
+        ], $content);
     }
 }

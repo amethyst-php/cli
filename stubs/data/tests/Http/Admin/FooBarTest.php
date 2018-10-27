@@ -30,5 +30,5 @@ class FooBarTest extends BaseTest
      *
      * @var string
      */
-    protected $config = 'amethyst.foo-bar.http.admin.foo-bar';
+    protected $config = 'admin.foo-bar';
 }

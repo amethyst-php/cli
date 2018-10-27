@@ -12,5 +12,5 @@ class FooBarManager extends Manager
     /**
      * @var string
      */
-    protected $config = 'amethyst.foo-bar.data.foo-bar';
+    protected $config = 'amethyst.package-name.data.foo-bar';
 }

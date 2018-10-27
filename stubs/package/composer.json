@@ -1,6 +1,6 @@
 {
-    "name": "railken/amethyst-foo-bar",
-    "keywords": ["laravel", "amethyst", "amethyst-foo-bar", "foo-bar"],
+    "name": "railken/amethyst-project-name",
+    "keywords": ["laravel", "amethyst", "amethyst-project-name", "project-name"],
     "license": "MIT",
     "require": {
         "php": ">=7.1",
@@ -25,7 +25,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Railken\\Amethyst\\Providers\\FooBarServiceProvider"
+                "Railken\\Amethyst\\Providers\\ProjectNameServiceProvider"
             ]
         }
     }
