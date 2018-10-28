@@ -81,7 +81,7 @@ class Command
      */
     public function handlePackage(string $package)
     {
-        $destination = $this->destination.'/amethyst-'.$package;
+        $destination = $this->destination.'/'.$package;
 
         $this->generateNewFiles([
             'package-name' => $package,
@@ -133,20 +133,19 @@ class Command
 
     public function replace(string $from, string $to, string $content)
     {
-        return str_replace([
-            $this->inflector->pluralize($this->inflector->tableize($from)),
-            $this->inflector->tableize($from),
-            str_replace('_', '-', $this->inflector->pluralize($this->inflector->tableize($from))),
-            str_replace('_', '-', $this->inflector->tableize($from)),
-            $this->inflector->pluralize($this->inflector->classify($from)),
-            $this->inflector->classify($from),
-        ], [
-            $this->inflector->pluralize($this->inflector->tableize($to)),
-            $this->inflector->tableize($to),
-            str_replace('_', '-', $this->inflector->pluralize($this->inflector->tableize($to))),
-            str_replace('_', '-', $this->inflector->tableize($to)),
-            $this->inflector->pluralize($this->inflector->classify($to)),
-            $this->inflector->classify($to),
-        ], $content);
+
+        return str_replace($this->normalize($from), $this->normalize($to), $content);
+    }
+
+    public function normalize($string)
+    {
+        return [
+            $this->inflector->pluralize($this->inflector->tableize($string)),
+            $this->inflector->tableize($string),
+            str_replace('-', '_', $this->inflector->pluralize($this->inflector->tableize($string))),
+            str_replace('-', '_', $this->inflector->tableize($string)),
+            $this->inflector->pluralize($this->inflector->classify($string)),
+            $this->inflector->classify($string),
+        ];
     }
 }

@@ -9,14 +9,14 @@ class CommandTest extends BaseTest
         \Railken\Amethyst\Skeleton\Command::main([
             null,
             'new',
-            'Test Something',
+            'My Package',
         ], getcwd().'/var/cache/');
 
         \Railken\Amethyst\Skeleton\Command::main([
             null,
             'data',
-            'Test Something',
+            'My Package',
             'My Data',
-        ], getcwd().'/var/cache/amethyst-test-something');
+        ], getcwd().'/var/cache/my-package');
     }
 }
