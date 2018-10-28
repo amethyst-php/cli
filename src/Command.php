@@ -115,7 +115,7 @@ class Command
 
                 foreach ($replace as $key => $value) {
                     $content = self::replace($key, $value, $content);
-                    $newfile = self::replace($value, $value, $newfile);
+                    $newfile = self::replace($key, $value, $newfile);
                 }
 
                 $to = $destination.$newfile;
