@@ -26,9 +26,9 @@ class FooBarTest extends BaseTest
     protected $group = 'admin';
 
     /**
-     * Base path config.
+     * Route name.
      *
      * @var string
      */
-    protected $config = 'admin.foo-bar';
+    protected $route = 'admin.foo-bar';
 }
