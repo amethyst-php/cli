@@ -29,3 +29,17 @@ Install all vendors packages
 Launch the tests
 
     ./vendor/bin/phpunit
+
+You're now good to go.
+
+## Add a new data
+
+Go inside the folder project
+	
+	cd <my-package>
+    
+Execute the command init and follow the steps
+
+    amethyst data
+    
+That's it!
