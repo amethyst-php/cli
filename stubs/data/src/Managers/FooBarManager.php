@@ -1,8 +1,8 @@
 <?php
 
-namespace Railken\Amethyst\Managers;
+namespace MyNamespace\Managers;
 
-use Railken\Amethyst\Common\ConfigurableManager;
+use MyNamespace\Common\ConfigurableManager;
 use Railken\Lem\Manager;
 
 class FooBarManager extends Manager

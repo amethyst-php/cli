@@ -1,11 +1,11 @@
 <?php
 
-namespace Railken\Amethyst\Models;
+namespace MyNamespace\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Railken\Lem\Contracts\EntityContract;
-use Railken\Amethyst\Common\ConfigurableModel;
+use MyNamespace\Common\ConfigurableModel;
 
 class FooBar extends Model implements EntityContract
 {

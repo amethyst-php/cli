@@ -26,7 +26,7 @@ class InitCommand extends Command
     {
         $stubs = new Stubs($output);
 
-        $output->writeln(['<info>Creating a new package...</info>', '']);
+        $output->writeln(['<info>Initializing a new package...</info>', '']);
 
         if (!$input->getOption('dir')) {
             return $output->writeln('<error>No directory found</error>');

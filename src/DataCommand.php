@@ -7,18 +7,33 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Question\Question;
+use Eloquent\Composer\Configuration\ConfigurationReader;
 
 class DataCommand extends Command
 {
     protected static $defaultName = 'data';
 
+    /**
+     * @var \Eloquent\Composer\Configuration\ConfigurationReader
+     */
+    protected $composerReader;
+
+    /**
+     * Create a new instance of the command.
+     */
+    public function __construct()
+    {
+        $this->composerReader = new ConfigurationReader;
+
+        parent::__construct();
+    }
+
     protected function configure()
     {
         $this
-            ->setDescription('Add a new  a new library.')
-            ->setHelp('Initialize a new library')
-            ->addArgument('name', InputArgument::REQUIRED, 'The name of the package')
-            ->addArgument('data', InputArgument::REQUIRED, 'The data')
+            ->setDescription('Add a new data')
+            ->setHelp('Create migration, config, model, faker, tests files')
             ->addOption('dir', 'd', InputOption::VALUE_REQUIRED, 'Target directory', getcwd())
         ;
     }
@@ -29,9 +44,35 @@ class DataCommand extends Command
 
         $output->writeln(['<info>Adding migrations, tests, models, etc...</info>', '']);
 
+        if (!$input->getOption('dir')) {
+            return $output->writeln('<error>No directory found</error>');
+        }
+
+        $helper = $this->getHelper('question');
+
+
+
+        $composerPath = $input->getOption('dir') . '/composer.json';
+        $question = new Question(sprintf('Composer location <comment>[%s]</comment>: ', $composerPath), $composerPath);
+        $composerPath = $helper->ask($input, $output, $question);
+
+        if (!file_exists($composerPath)) {
+            return $output->writeln(sprintf('<error>File not found: %s</error>', $composerPath));
+        }
+
+        $composer = $this->composerReader->read($composerPath);
+
+        $question = new Question(sprintf('Name data (e.g. Book): '), 'Book');
+        $data = $helper->ask($input, $output, $question);
+
+        $package = $composer->extra()->amethyst->package;
+        $namespace = $composer->extra()->amethyst->namespace;
+
         $stubs->generateNewFiles([
-            'package-name' => $input->getArgument('name'),
-            'foo-bar'      => $input->getArgument('data'),
+            'my-namespace' => $namespace,
+            'my-escaped-namespace' => str_replace("\\", "\\\\", $namespace),
+            'package-name' => $package,
+            'foo-bar'      => $data,
         ], __DIR__.'/../stubs/data', $input->getOption('dir'));
     }
 }

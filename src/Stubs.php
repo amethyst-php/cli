@@ -68,6 +68,7 @@ class Stubs
      */
     public function generateNewFiles(array $replace, string $source, string $directory)
     {
+        
         $files = self::rglob($source.'/{,.}[!.,!..]*', GLOB_MARK | GLOB_BRACE);
 
         foreach ($files as $file) {

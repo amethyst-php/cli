@@ -1,8 +1,8 @@
 <?php
 
-namespace Railken\Amethyst\Providers;
+namespace MyNamespace\Providers;
 
-use Railken\Amethyst\Common\CommonServiceProvider;
+use MyNamespace\Common\CommonServiceProvider;
 
 class FooBarServiceProvider extends CommonServiceProvider
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Railken\Amethyst\Http\Controllers\Admin;
+namespace MyNamespace\Http\Controllers\Admin;
 
-use Railken\Amethyst\Api\Http\Controllers\RestManagerController;
-use Railken\Amethyst\Api\Http\Controllers\Traits as RestTraits;
-use Railken\Amethyst\Managers\FooBarManager;
+use MyNamespace\Api\Http\Controllers\RestManagerController;
+use MyNamespace\Api\Http\Controllers\Traits as RestTraits;
+use MyNamespace\Managers\FooBarManager;
 
 class FooBarsController extends RestManagerController
 {
