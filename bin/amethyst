@@ -11,6 +11,10 @@ if (is_file($autoloaderInWorkingDirectory)) {
 	require_once $autoloaderInWorkingDirectory;
 }
 
-use Railken\Amethyst\Skeleton\Command;
+use Symfony\Component\Console\Application;
 
-Command::main($argv, getopt([], ['d::']));
+$application = new Application();
+
+$application->add(new \Railken\Amethyst\Skeleton\InitCommand());
+$application->add(new \Railken\Amethyst\Skeleton\DataCommand());
+$application->run();

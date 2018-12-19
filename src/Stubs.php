@@ -3,8 +3,12 @@
 namespace Railken\Amethyst\Skeleton;
 
 use Doctrine\Common\Inflector\Inflector;
+use Eloquent\Composer\Configuration\ConfigurationReader;
+use Railken\Bag;
+use Eloquent\Composer\Configuration\Exception\InvalidJsonException;
+use Symfony\Component\Console\Output\OutputInterface;
 
-class Command
+class Stubs
 {
     /**
      * @var \Doctrine\Common\Inflector\Inflector
@@ -12,36 +16,19 @@ class Command
     public $inflector;
 
     /**
-     * @var string
+     * @var \Symfony\Component\Console\Output\OutputInterface
      */
-    public $destination;
+    public $output;
 
     /**
-     * @param array  $argv
-     * @param string $destination
+     * Create a new instance.
+     *
+     * @param OutputInterface $output
      */
-    public static function main(array $argv = [], string $destination)
+    public function __construct(OutputInterface $output) 
     {
-        $command = new static();
-        $command->inflector = new Inflector();
-
-        $command->destination = $destination ? $destination : getcwd();
-
-        if (!isset($argv[1]) || !isset($argv[2])) {
-            throw new \InvalidArgumentException('Missing parameter');
-        }
-
-        if ($argv[1] === 'new') {
-            $command->handlePackage($command->parseParam($argv[2]));
-        }
-
-        if ($argv[1] === 'data') {
-            if (!isset($argv[3])) {
-                throw new \InvalidArgumentException('Missing parameter');
-            }
-
-            $command->handleData($command->parseParam($argv[2]), $command->parseParam($argv[3]));
-        }
+        $this->inflector = new Inflector();
+        $this->output = $output;
     }
 
     /**
@@ -74,37 +61,12 @@ class Command
         return str_replace('_', '-', $this->inflector->tableize($this->inflector->classify($param)));
     }
 
-    /**
-     * Handle the incoming request.
-     *
-     * @string $package
+     /**
+     * @param array $replace
+     * @param string $source
+     * @param string $directory
      */
-    public function handlePackage(string $package)
-    {
-        $destination = $this->destination.'/'.$package;
-
-        $this->generateNewFiles([
-            'package-name' => $package,
-        ], __DIR__.'/../stubs/package', $destination);
-    }
-
-    /**
-     * Handle the incoming request.
-     *
-     * @string $package
-     * @string $data
-     */
-    public function handleData(string $package, string $data)
-    {
-        $destination = $this->destination;
-
-        $this->generateNewFiles([
-            'package-name' => $package,
-            'foo-bar'      => $data,
-        ], __DIR__.'/../stubs/data', $destination);
-    }
-
-    public function generateNewFiles(array $replace, string $source, string $destination)
+    public function generateNewFiles(array $replace, string $source, string $directory)
     {
         $files = self::rglob($source.'/{,.}[!.,!..]*', GLOB_MARK | GLOB_BRACE);
 
@@ -118,7 +80,7 @@ class Command
                     $newfile = self::replace($key, $value, $newfile);
                 }
 
-                $to = $destination.$newfile;
+                $to = $directory.$newfile;
 
                 if (!file_exists(dirname($to))) {
                     mkdir(dirname($to), 0755, true);
@@ -126,17 +88,24 @@ class Command
 
                 file_put_contents($to, $content);
 
-                print_r(sprintf("Generated: %s \n", $to));
+                $this->output->writeln(sprintf('<info>Generated: %s</info>', $to));
             }
         }
     }
 
+    /**
+     * @param string $from
+     * @param string $to
+     * @param string $content
+     */
     public function replace(string $from, string $to, string $content)
     {
-
         return str_replace($this->normalize($from), $this->normalize($to), $content);
     }
 
+    /**
+     * @param string $string
+     */
     public function normalize($string)
     {
         return [

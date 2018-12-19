@@ -1,5 +1,6 @@
 {
     "name": "railken/amethyst-package-name",
+    "type": "library",
     "keywords": ["laravel", "amethyst", "amethyst-package-name", "package-name"],
     "license": "MIT",
     "require": {
