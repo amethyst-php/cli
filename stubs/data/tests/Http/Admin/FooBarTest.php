@@ -3,7 +3,7 @@
 namespace MyNamespace\Tests\Http\Admin;
 
 use Illuminate\Support\Facades\Foo;
-use MyNamespace\Api\Support\Testing\TestableBaseTrait;
+use Railken\Amethyst\Api\Support\Testing\TestableBaseTrait;
 use MyNamespace\Fakers\FooBarFaker;
 use MyNamespace\Tests\BaseTest;
 

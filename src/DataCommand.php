@@ -9,6 +9,8 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Question\Question;
 use Eloquent\Composer\Configuration\ConfigurationReader;
+use PhpParser\ParserFactory;
+use PhpParser\{Node, NodeTraverser, NodeVisitorAbstract, NodeFinder, Lexer, Parser};
 
 class DataCommand extends Command
 {

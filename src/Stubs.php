@@ -76,10 +76,8 @@ class Stubs
                 $content = file_get_contents($file);
                 $newfile = str_replace($source, '', $file);
 
-                foreach ($replace as $key => $value) {
-                    $content = self::replace($key, $value, $content);
-                    $newfile = self::replace($key, $value, $newfile);
-                }
+                $content = $this->replaceArray($replace, $content);
+                $newfile = $this->replaceArray($replace, $newfile);
 
                 $to = $directory.$newfile;
 
@@ -95,11 +93,28 @@ class Stubs
     }
 
     /**
+     * @param array $array
+     * @param string $content
+     *
+     * @return string
+     */
+    public function replaceArray(array $replace, string $content): string
+    {
+        foreach ($replace as $key => $value) {
+            $content = $this->replace($key, $value, $content);
+        }
+
+        return $content;
+    }
+
+    /**
      * @param string $from
      * @param string $to
      * @param string $content
+     *
+     * @return string
      */
-    public function replace(string $from, string $to, string $content)
+    public function replace(string $from, string $to, string $content): string
     {
         return str_replace($this->normalize($from), $this->normalize($to), $content);
     }

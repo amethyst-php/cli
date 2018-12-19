@@ -1,6 +1,6 @@
-# prefix-package-name
+# amethyst-package-name
 
-[![Build Status](https://travis-ci.org/author/prefix-package-name.svg?branch=master)](https://travis-ci.org/author/prefix-package-name)
+[![Build Status](https://travis-ci.org/author/amethyst-package-name.svg?branch=master)](https://travis-ci.org/author/amethyst-package-name)
 
 [Amethyst](https://github.com/railken/amethyst) package.
 

@@ -2,7 +2,7 @@
 
 namespace MyNamespace\Managers;
 
-use MyNamespace\Common\ConfigurableManager;
+use Railken\Amethyst\Common\ConfigurableManager;
 use Railken\Lem\Manager;
 
 class FooBarManager extends Manager

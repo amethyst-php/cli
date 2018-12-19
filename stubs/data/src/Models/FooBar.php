@@ -5,7 +5,7 @@ namespace MyNamespace\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Railken\Lem\Contracts\EntityContract;
-use MyNamespace\Common\ConfigurableModel;
+use Railken\Amethyst\Common\ConfigurableModel;
 
 class FooBar extends Model implements EntityContract
 {

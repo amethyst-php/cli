@@ -47,15 +47,14 @@ class InitCommand extends Command
         $question = new Question(sprintf('Namespace <comment>[%s]</comment>: ', $namespace), $namespace);
         $namespace = $helper->ask($input, $output, $question);
 
-        $prefix = 'amethyst';
+        /*$prefix = 'amethyst';
         $question = new Question(sprintf('Prefix <comment>[%s]</comment>: ', $prefix), $prefix);
-        $prefix = $helper->ask($input, $output, $question);
+        $prefix = $helper->ask($input, $output, $question);*/
 
         $stubs->generateNewFiles([
             'my-namespace' => $namespace,
             'my-escaped-namespace' => str_replace("\\", "\\\\", $namespace),
             'package-name' => $package,
-            'prefix' => $prefix,
             'author' => $author,
         ], __DIR__.'/../stubs/package', $input->getOption('dir'));
     }
