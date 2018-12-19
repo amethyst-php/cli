@@ -1,6 +1,6 @@
 <?php
 
-namespace Railken\Amethyst\Tests;
+namespace MyNamespace\Tests;
 
 abstract class BaseTest extends \Orchestra\Testbench\TestCase
 {
@@ -20,7 +20,7 @@ abstract class BaseTest extends \Orchestra\Testbench\TestCase
     protected function getPackageProviders($app)
     {
         return [
-            \Railken\Amethyst\Providers\PackageNameServiceProvider::class,
+            \MyNamespace\Providers\PackageNameServiceProvider::class,
         ];
     }
 }

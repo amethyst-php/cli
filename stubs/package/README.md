@@ -1,6 +1,6 @@
-# amethyst-package-name
+# prefix-package-name
 
-[![Build Status](https://travis-ci.org/railken/amethyst-package-name.svg?branch=master)](https://travis-ci.org/railken/amethyst-package-name)
+[![Build Status](https://travis-ci.org/author/prefix-package-name.svg?branch=master)](https://travis-ci.org/author/prefix-package-name)
 
 [Amethyst](https://github.com/railken/amethyst) package.
 
@@ -13,7 +13,7 @@ PHP 7.1 and later.
 You can install it via [Composer](https://getcomposer.org/) by typing the following command:
 
 ```bash
-composer require railken/amethyst-package-name
+composer require author/amethyst-package-name
 ```
 
 The package will automatically register itself.

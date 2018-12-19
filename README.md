@@ -8,19 +8,15 @@ If this is your first global composer package, you have to add the composer path
 
     export PATH=$PATH:$HOME/.composer/vendor/bin
 
-# Create your package
+## Initialize a new package
 
 Go inside the folder project
 	
 	cd <my-package>
     
-Now you can execute the command 
+Execute the command init and follow the steps
 
-    amethyst init <my-package>
-
-Create a new data
-
-    amethyst data <my-package> <my-data>
+    amethyst init
     
 Copy the .env.example and configure it
 
@@ -33,4 +29,3 @@ Install all vendors packages
 Launch the tests
 
     ./vendor/bin/phpunit
-    
