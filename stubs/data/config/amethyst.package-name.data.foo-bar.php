@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 return [
     'table'      => 'amethyst_foo_bars',
