@@ -2,15 +2,12 @@
 
 namespace Railken\Amethyst\Skeleton;
 
+use Eloquent\Composer\Configuration\ConfigurationReader;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
-use Eloquent\Composer\Configuration\ConfigurationReader;
-use PhpParser\ParserFactory;
-use PhpParser\{Node, NodeTraverser, NodeVisitorAbstract, NodeFinder, Lexer, Parser};
 
 class DataCommand extends Command
 {
@@ -26,7 +23,7 @@ class DataCommand extends Command
      */
     public function __construct()
     {
-        $this->composerReader = new ConfigurationReader;
+        $this->composerReader = new ConfigurationReader();
 
         parent::__construct();
     }
@@ -52,9 +49,7 @@ class DataCommand extends Command
 
         $helper = $this->getHelper('question');
 
-
-
-        $composerPath = $input->getOption('dir') . '/composer.json';
+        $composerPath = $input->getOption('dir').'/composer.json';
         $question = new Question(sprintf('Composer location <comment>[%s]</comment>: ', $composerPath), $composerPath);
         $composerPath = $helper->ask($input, $output, $question);
 
@@ -71,10 +66,10 @@ class DataCommand extends Command
         $namespace = $composer->extra()->amethyst->namespace;
 
         $stubs->generateNewFiles([
-            'my-namespace' => $namespace,
-            'my-escaped-namespace' => str_replace("\\", "\\\\", $namespace),
-            'package-name' => $package,
-            'foo-bar'      => $data,
+            'my-namespace'         => $namespace,
+            'my-escaped-namespace' => str_replace('\\', '\\\\', $namespace),
+            'package-name'         => $package,
+            'foo-bar'              => $data,
         ], __DIR__.'/../stubs/data', $input->getOption('dir'));
     }
 }

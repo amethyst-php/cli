@@ -4,14 +4,13 @@ namespace Railken\Amethyst\Skeleton;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 
-class InitCommand extends Command
+class LibraryInitCommand extends Command
 {
-    protected static $defaultName = 'init';
+    protected static $defaultName = 'library:initialize';
 
     protected function configure()
     {
@@ -39,11 +38,11 @@ class InitCommand extends Command
         $package = $helper->ask($input, $output, $question);
 
         $processUser = posix_getpwuid(posix_geteuid());
-        $user = $processUser['name'] ?? "me";
-        $question =  new Question(sprintf('Author <comment>[%s]</comment>: ', $user), $user);
+        $user = $processUser['name'] ?? 'me';
+        $question = new Question(sprintf('Author <comment>[%s]</comment>: ', $user), $user);
         $author = $helper->ask($input, $output, $question);
 
-        $namespace = ucfirst($author)."\\Amethyst";
+        $namespace = ucfirst($author).'\\Amethyst';
         $question = new Question(sprintf('Namespace <comment>[%s]</comment>: ', $namespace), $namespace);
         $namespace = $helper->ask($input, $output, $question);
 
@@ -52,10 +51,10 @@ class InitCommand extends Command
         $prefix = $helper->ask($input, $output, $question);*/
 
         $stubs->generateNewFiles([
-            'my-namespace' => $namespace,
-            'my-escaped-namespace' => str_replace("\\", "\\\\", $namespace),
-            'package-name' => $package,
-            'author' => $author,
+            'my-namespace'         => $namespace,
+            'my-escaped-namespace' => str_replace('\\', '\\\\', $namespace),
+            'package-name'         => $package,
+            'author'               => $author,
         ], __DIR__.'/../stubs/package', $input->getOption('dir'));
     }
 }

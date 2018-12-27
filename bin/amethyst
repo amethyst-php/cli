@@ -1,6 +1,5 @@
 #!/usr/bin/env php
 <?php
-
 $composerAutoloadFile = __DIR__ . '/../vendor/autoload.php';
 if (!is_file($composerAutoloadFile)) {
 	$composerAutoloadFile = __DIR__ . '/../../../autoload.php';
@@ -15,6 +14,7 @@ use Symfony\Component\Console\Application;
 
 $application = new Application();
 
-$application->add(new \Railken\Amethyst\Skeleton\InitCommand());
+$application->add(new \Railken\Amethyst\Skeleton\ProjectNewCommand());
+$application->add(new \Railken\Amethyst\Skeleton\LibraryInitCommand());
 $application->add(new \Railken\Amethyst\Skeleton\DataCommand());
 $application->run();

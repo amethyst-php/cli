@@ -3,9 +3,6 @@
 namespace Railken\Amethyst\Skeleton;
 
 use Doctrine\Common\Inflector\Inflector;
-use Eloquent\Composer\Configuration\ConfigurationReader;
-use Railken\Bag;
-use Eloquent\Composer\Configuration\Exception\InvalidJsonException;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class Stubs
@@ -25,7 +22,7 @@ class Stubs
      *
      * @param OutputInterface $output
      */
-    public function __construct(OutputInterface $output) 
+    public function __construct(OutputInterface $output)
     {
         $this->inflector = new Inflector();
         $this->output = $output;
@@ -61,14 +58,13 @@ class Stubs
         return str_replace('_', '-', $this->inflector->tableize($this->inflector->classify($param)));
     }
 
-     /**
-     * @param array $replace
+    /**
+     * @param array  $replace
      * @param string $source
      * @param string $directory
      */
     public function generateNewFiles(array $replace, string $source, string $directory)
     {
-        
         $files = self::rglob($source.'/{,.}[!.,!..]*', GLOB_MARK | GLOB_BRACE);
 
         foreach ($files as $file) {
@@ -93,7 +89,7 @@ class Stubs
     }
 
     /**
-     * @param array $array
+     * @param array  $array
      * @param string $content
      *
      * @return string

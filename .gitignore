@@ -1,5 +1,5 @@
 vendor/
-var/cache
+var
 \.php_cs\.cache
 \.env
 build/
