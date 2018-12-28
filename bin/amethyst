@@ -14,7 +14,7 @@ use Symfony\Component\Console\Application;
 
 $application = new Application();
 
-$application->add(new \Railken\Amethyst\Skeleton\ProjectNewCommand());
-$application->add(new \Railken\Amethyst\Skeleton\LibraryInitCommand());
-$application->add(new \Railken\Amethyst\Skeleton\DataCommand());
+$application->add(new \Railken\Amethyst\Cli\ProjectNewCommand());
+$application->add(new \Railken\Amethyst\Cli\LibraryInitCommand());
+$application->add(new \Railken\Amethyst\Cli\DataCommand());
 $application->run();

@@ -1,5 +1,5 @@
 {
-    "name": "railken/amethyst-skeleton",
+    "name": "railken/cli-amethyst",
     "keywords": ["laravel"],
     "license": "MIT",
     "require": {
@@ -20,12 +20,12 @@
     },
     "autoload": {
         "psr-4" : {
-            "Railken\\Amethyst\\Skeleton\\" : "src/"
+            "Railken\\Amethyst\\Cli\\" : "src/"
         }
     },
     "autoload-dev": {
         "psr-4": { 
-            "Railken\\Amethyst\\Skeleton\\Tests\\": "tests/" 
+            "Railken\\Amethyst\\Cli\\Tests\\": "tests/" 
         }
     },
     "bin": [

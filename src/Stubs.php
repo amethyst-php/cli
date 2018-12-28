@@ -1,6 +1,6 @@
 <?php
 
-namespace Railken\Amethyst\Skeleton;
+namespace Railken\Amethyst\Cli;
 
 use Doctrine\Common\Inflector\Inflector;
 use Symfony\Component\Console\Output\OutputInterface;

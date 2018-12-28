@@ -1,6 +1,6 @@
 <?php
 
-namespace Railken\Amethyst\Skeleton;
+namespace Railken\Amethyst\Cli;
 
 use GuzzleHttp\Client;
 use Laravel\Installer\Console\NewCommand as Command;
