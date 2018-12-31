@@ -1,7 +1,7 @@
 {
-    "name": "author/package-name",
+    "name": "author/amethyst-package-name",
     "type": "library",
-    "keywords": ["laravel", "amethyst", "package-name"],
+    "keywords": ["laravel", "amethyst", "amethyst-package-name", "package-name"],
     "license": "MIT",
     "require": {
         "php": ">=7.1",
