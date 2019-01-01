@@ -9,6 +9,6 @@ return [
     'serializer' => MyNamespace\Serializers\FooBarSerializer::class,
     'validator'  => MyNamespace\Validators\FooBarValidator::class,
     'authorizer' => MyNamespace\Authorizers\FooBarAuthorizer::class,
-    'faker'      => MyNamespace\Authorizers\FooBarFaker::class,
-    'manager'    => MyNamespace\Authorizers\FooBarManager::class,
+    'faker'      => MyNamespace\Fakers\FooBarFaker::class,
+    'manager'    => MyNamespace\Managers\FooBarManager::class,
 ];
