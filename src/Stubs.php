@@ -112,7 +112,7 @@ class Stubs
      */
     public function replace(string $from, string $to, string $content): string
     {
-        return str_replace($this->normalize($from), $this->normalize($to), $content);
+        return strtr($content, array_combine($this->normalize($from), $this->normalize($to)));
     }
 
     /**
@@ -120,13 +120,17 @@ class Stubs
      */
     public function normalize($string)
     {
+        $classyString = $this->inflector->classify($string);
+        $tableString = str_replace('-', '_', $this->inflector->tableize($classyString));
+        $kebabString = str_replace('_', '-', $this->inflector->tableize($classyString));
+
         return [
-            $this->inflector->pluralize($this->inflector->tableize($string)),
-            $this->inflector->tableize($string),
-            str_replace('-', '_', $this->inflector->pluralize($this->inflector->tableize($string))),
-            str_replace('-', '_', $this->inflector->tableize($string)),
-            $this->inflector->pluralize($this->inflector->classify($string)),
-            $this->inflector->classify($string),
+            $this->inflector->pluralize($tableString),
+            $tableString,
+            $this->inflector->pluralize($kebabString),
+            $kebabString,
+            $this->inflector->pluralize($classyString),
+            $classyString,
         ];
     }
 }
