@@ -3,4 +3,4 @@ var
 \.php_cs\.cache
 \.env
 build/
-composer\.lock
+/composer\.lock
