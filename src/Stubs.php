@@ -2,20 +2,23 @@
 
 namespace Railken\Amethyst\Cli;
 
-use Doctrine\Common\Inflector\Inflector;
 use Symfony\Component\Console\Output\OutputInterface;
+use Railken\Template\Generators;
+use Railken\Amethyst\Cli\Twig\AppExtension;
 
 class Stubs
 {
-    /**
-     * @var \Doctrine\Common\Inflector\Inflector
-     */
-    public $inflector;
 
     /**
      * @var \Symfony\Component\Console\Output\OutputInterface
      */
     public $output;
+
+    /**
+     * @var \Twig_Environment
+     */
+    public $twig;
+
 
     /**
      * Create a new instance.
@@ -24,8 +27,11 @@ class Stubs
      */
     public function __construct(OutputInterface $output)
     {
-        $this->inflector = new Inflector();
         $this->output = $output;
+
+        $this->twig = new \Twig_Environment(new \Twig_Loader_Array(array()));
+
+        $this->twig->addExtension(new AppExtension());
     }
 
     /**
@@ -47,33 +53,21 @@ class Stubs
     }
 
     /**
-     * Parse parameter.
-     *
-     * @param string $param
-     *
-     * @return string
-     */
-    public function parseParam(string $param): string
-    {
-        return str_replace('_', '-', $this->inflector->tableize($this->inflector->classify($param)));
-    }
-
-    /**
-     * @param array  $replace
+     * @param array  $data
      * @param string $source
      * @param string $directory
      */
-    public function generateNewFiles(array $replace, string $source, string $directory)
+    public function generateNewFiles(array $data, string $source, string $directory)
     {
         $files = self::rglob($source.'/{,.}[!.,!..]*', GLOB_MARK | GLOB_BRACE);
 
         foreach ($files as $file) {
             if (!is_dir($file)) {
-                $content = file_get_contents($file);
                 $newfile = str_replace($source, '', $file);
 
-                $content = $this->replaceArray($replace, $content);
-                $newfile = $this->replaceArray($replace, $newfile);
+
+                $content = $this->twig->createTemplate(file_get_contents($file))->render($data);
+                $newfile = $this->twig->createTemplate($this->escapedFilename($newfile))->render($data);
 
                 $to = $directory.$newfile;
 
@@ -88,49 +82,12 @@ class Stubs
         }
     }
 
-    /**
-     * @param array  $array
-     * @param string $content
-     *
-     * @return string
-     */
-    public function replaceArray(array $replace, string $content): string
+    public function escapedFilename(string $filename): string
     {
-        foreach ($replace as $key => $value) {
-            $content = $this->replace($key, $value, $content);
-        }
+        $filename = str_replace("__", "|", $filename);
+        $filename = str_replace("|--", "{{", $filename);
+        $filename = str_replace("--|", "}}", $filename);
 
-        return $content;
-    }
-
-    /**
-     * @param string $from
-     * @param string $to
-     * @param string $content
-     *
-     * @return string
-     */
-    public function replace(string $from, string $to, string $content): string
-    {
-        return strtr($content, array_combine($this->normalize($from), $this->normalize($to)));
-    }
-
-    /**
-     * @param string $string
-     */
-    public function normalize($string)
-    {
-        $classyString = $this->inflector->classify($string);
-        $tableString = str_replace('-', '_', $this->inflector->tableize($classyString));
-        $kebabString = str_replace('_', '-', $this->inflector->tableize($classyString));
-
-        return [
-            $this->inflector->pluralize($tableString),
-            $tableString,
-            $this->inflector->pluralize($kebabString),
-            $kebabString,
-            $this->inflector->pluralize($classyString),
-            $classyString,
-        ];
+        return $filename;
     }
 }

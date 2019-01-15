@@ -1,6 +1,6 @@
 <?php
 
-namespace MyNamespace\Tests;
+namespace {{ MyNamespace|classify }}\Tests;
 
 abstract class BaseTest extends \Orchestra\Testbench\TestCase
 {
@@ -20,7 +20,7 @@ abstract class BaseTest extends \Orchestra\Testbench\TestCase
     protected function getPackageProviders($app)
     {
         return [
-            \MyNamespace\Providers\PackageNameServiceProvider::class,
+            \{{ MyNamespace|classify }}\Providers\{{ PackageName|classify }}ServiceProvider::class,
         ];
     }
 }

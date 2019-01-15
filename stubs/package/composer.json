@@ -1,7 +1,7 @@
 {
-    "name": "author/amethyst-package-name",
+    "name": "{{ Author }}/amethyst-{{ PackageName|kebab }}",
     "type": "library",
-    "keywords": ["laravel", "amethyst", "amethyst-package-name", "package-name"],
+    "keywords": ["laravel", "amethyst", "amethyst-{{ PackageName|kebab }}", "{{ PackageName|kebab }}"],
     "license": "MIT",
     "require": {
         "php": ">=7.1",
@@ -13,22 +13,22 @@
     },
     "autoload": {
         "psr-4" : {
-            "MyEscapedNamespace\\" : "src/"
+            "{{ MyNamespace|escapeSlash|classify }}\\" : "src/"
         }
     },
     "autoload-dev": {
         "psr-4": { 
-            "MyEscapedNamespace\\Tests\\": "tests/" 
+            "{{ MyNamespace|escapeSlash|classify }}\\Tests\\": "tests/" 
         }
     },
     "extra": {
         "amethyst": {
-            "package": "package-name",
-            "namespace": "MyEscapedNamespace"
+            "package": "{{ PackageName|kebab }}",
+            "namespace": "{{ MyNamespace|escapeSlash|classify }}"
         },
         "laravel": {
             "providers": [
-                "MyEscapedNamespace\\Providers\\PackageNameServiceProvider"
+                "{{ MyNamespace|escapeSlash|classify }}\\Providers\\{{ PackageName|classify }}ServiceProvider"
             ]
         }
     }

@@ -51,10 +51,9 @@ class LibraryInitializeCommand extends Command
         $prefix = $helper->ask($input, $output, $question);*/
 
         $stubs->generateNewFiles([
-            'my-namespace'         => $namespace,
-            'my-escaped-namespace' => str_replace('\\', '\\\\', $namespace),
-            'package-name'         => $package,
-            'author'               => $author,
+            'MyNamespace'         => $namespace,
+            'PackageName'         => $package,
+            'Author'               => $author,
         ], __DIR__.'/../stubs/package', $input->getOption('dir'));
     }
 }
