@@ -1,11 +1,11 @@
 <?php
 
-namespace MyNamespace\Authorizers;
+namespace {{ MyNamespace|classify }}\Authorizers;
 
 use Railken\Lem\Authorizer;
 use Railken\Lem\Tokens;
 
-class FooBarAuthorizer extends Authorizer
+class {{ EntityName|classify }}Authorizer extends Authorizer
 {
     /**
      * List of all permissions.
@@ -13,9 +13,9 @@ class FooBarAuthorizer extends Authorizer
      * @var array
      */
     protected $permissions = [
-        Tokens::PERMISSION_CREATE => 'foo-bar.create',
-        Tokens::PERMISSION_UPDATE => 'foo-bar.update',
-        Tokens::PERMISSION_SHOW   => 'foo-bar.show',
-        Tokens::PERMISSION_REMOVE => 'foo-bar.remove',
+        Tokens::PERMISSION_CREATE => '{{ EntityName|kebab }}.create',
+        Tokens::PERMISSION_UPDATE => '{{ EntityName|kebab }}.update',
+        Tokens::PERMISSION_SHOW   => '{{ EntityName|kebab }}.show',
+        Tokens::PERMISSION_REMOVE => '{{ EntityName|kebab }}.remove',
     ];
 }

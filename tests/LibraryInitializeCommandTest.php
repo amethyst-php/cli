@@ -16,9 +16,13 @@ class LibraryInitializeCommandTest extends BaseTest
 
         $command = $application->find('lib:init');
 
-
 		$commandTester = new CommandTester($command);
-		$commandTester->setInputs(['test', 'author', 'Author\\Test']);
+		$commandTester->setInputs([
+            'test', 
+            'author', 
+            'Author\\Test'
+        ]);
+
         $commandTester->execute([
             'command'  => $command->getName(),
             '--dir'    => $this->getDir()

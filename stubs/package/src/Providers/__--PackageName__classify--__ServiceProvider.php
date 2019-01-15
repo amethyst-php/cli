@@ -1,6 +1,6 @@
 <?php
 
-namespace MyNamespace\Providers;
+namespace {{ MyNamespace|classify }}\Providers;
 
 use Railken\Amethyst\Common\CommonServiceProvider;
 

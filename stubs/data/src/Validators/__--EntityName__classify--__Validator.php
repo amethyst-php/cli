@@ -1,9 +1,9 @@
 <?php
 
-namespace MyNamespace\Validators;
+namespace {{ MyNamespace|classify }}\Validators;
 
 use Railken\Lem\Validator;
 
-class FooBarValidator extends Validator
+class {{ EntityName|classify }}Validator extends Validator
 {
 }

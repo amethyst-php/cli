@@ -5,6 +5,7 @@ namespace Railken\Amethyst\Tests;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Process\Process;
+use Railken\Dotenv\Dotenv;
 
 class LibraryDataCommandTest extends BaseTest
 {
@@ -16,9 +17,15 @@ class LibraryDataCommandTest extends BaseTest
         $application->add(new \Railken\Amethyst\Cli\LibraryDataCommand());
 		$application->add(new \Railken\Amethyst\Cli\LibraryInitializeCommand());
 
+
         $command = $application->find('lib:init');
 		$commandTester = new CommandTester($command);
-        $commandTester->setInputs(['test', 'author', 'Author\\Test']);
+        $commandTester->setInputs([
+            'test', 
+            'author', 
+            'Author\\Test'
+
+        ]);
         $commandTester->execute([
             'command'  => $command->getName(),
             '--dir'    => $this->getDir()
@@ -48,7 +55,20 @@ class LibraryDataCommandTest extends BaseTest
         $this->assertContains('src/Http/Controllers/Admin/BooksController', $output);
         $this->assertContains('database/migrations/0000_00_00_000000_create_books_table', $output);
 
-        $process = new Process(['dir', $this->getDir()]);
 
+        $vars = [
+            'APP_NAME'    => 'Laravel',
+            'DB_HOST'     => '127.0.0.1',
+            'DB_PORT'     => '3306',
+            'DB_DATABASE' => 'homestead',
+            'DB_USERNAME' => 'homestead',
+            'DB_PASSWORD' => 'secret',
+        ];
+
+        copy(__DIR__."/../.env", $this->getDir()."/.env");
+
+        $process = Process::fromShellCommandline('composer install && ./vendor/bin/phpunit', $this->getDir());
+        $process->mustRun(null);
+        print_r($process->getOutput());
 	}
 }

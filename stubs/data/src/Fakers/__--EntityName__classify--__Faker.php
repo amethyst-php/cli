@@ -1,12 +1,12 @@
 <?php
 
-namespace MyNamespace\Fakers;
+namespace {{ MyNamespace|classify }}\Fakers;
 
 use Faker\Factory;
 use Railken\Bag;
 use Railken\Lem\Faker;
 
-class FooBarFaker extends Faker
+class {{ EntityName|classify }}Faker extends Faker
 {
     /**
      * @return \Railken\Bag

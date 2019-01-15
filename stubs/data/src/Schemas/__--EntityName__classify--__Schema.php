@@ -1,11 +1,11 @@
 <?php
 
-namespace MyNamespace\Schemas;
+namespace {{ MyNamespace|classify }}\Schemas;
 
 use Railken\Lem\Attributes;
 use Railken\Lem\Schema;
 
-class FooBarSchema extends Schema
+class {{ EntityName|classify }}Schema extends Schema
 {
     /**
      * Get all the attributes.

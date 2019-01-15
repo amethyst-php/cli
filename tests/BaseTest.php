@@ -5,7 +5,12 @@ namespace Railken\Amethyst\Tests;
 abstract class BaseTest extends \PHPUnit\Framework\TestCase
 {
 	public function setUp()
-	{
+	{   
+		$dotenv = new \Dotenv\Dotenv(__DIR__.'/..', '.env');
+        $dotenv->load();
+
+        parent::setUp();
+
         $dir = __DIR__.'/../var';
 
         if (file_exists($dir)) {

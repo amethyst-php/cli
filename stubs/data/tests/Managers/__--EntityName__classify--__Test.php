@@ -1,13 +1,13 @@
 <?php
 
-namespace MyNamespace\Tests\Managers;
+namespace {{ MyNamespace|classify }}\Tests\Managers;
 
-use MyNamespace\Fakers\FooBarFaker;
-use MyNamespace\Managers\FooBarManager;
-use MyNamespace\Tests\BaseTest;
+use {{ MyNamespace|classify }}\Fakers\{{ EntityName|classify }}Faker;
+use {{ MyNamespace|classify }}\Managers\{{ EntityName|classify }}Manager;
+use {{ MyNamespace|classify }}\Tests\BaseTest;
 use Railken\Lem\Support\Testing\TestableBaseTrait;
 
-class FooBarTest extends BaseTest
+class {{ EntityName|classify }}Test extends BaseTest
 {
     use TestableBaseTrait;
 
@@ -16,12 +16,12 @@ class FooBarTest extends BaseTest
      *
      * @var string
      */
-    protected $manager = FooBarManager::class;
+    protected $manager = {{ EntityName|classify }}Manager::class;
 
     /**
      * Faker class.
      *
      * @var string
      */
-    protected $faker = FooBarFaker::class;
+    protected $faker = {{ EntityName|classify }}Faker::class;
 }

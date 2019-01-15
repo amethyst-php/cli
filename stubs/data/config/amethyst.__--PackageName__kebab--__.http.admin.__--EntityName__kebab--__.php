@@ -2,9 +2,9 @@
 
 return [
     'enabled'     => true,
-    'controller'  => MyNamespace\Http\Controllers\Admin\FooBarsController::class,
+    'controller'  => {{ MyNamespace|classify }}\Http\Controllers\Admin\{{ EntityName|pluralize|classify }}Controller::class,
     'router'      => [
-        'as'        => 'foo-bar.',
-        'prefix'    => '/foo-bars',
+        'as'        => '{{ EntityName|kebab }}.',
+        'prefix'    => '/{{ EntityName|pluralize|kebab }}',
     ],
 ];

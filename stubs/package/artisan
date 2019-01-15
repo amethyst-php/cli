@@ -17,7 +17,7 @@ define('LARAVEL_START', microtime(true));
 
 require __DIR__.'/vendor/autoload.php';
 
-class AppTest extends \MyNamespace\Tests\BaseTest
+class AppTest extends \{{ MyNamespace|classify }}\Tests\BaseTest
 {
     /**
      * Retrieve app.

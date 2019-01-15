@@ -5,14 +5,14 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFooBarsTable extends Migration
+class Create{{ EntityName|pluralize|classify }}Table extends Migration
 {
     /**
      * Run the migrations.
      */
     public function up()
     {
-        Schema::create(Config::get('amethyst.package-name.data.foo-bar.table'), function (Blueprint $table) {
+        Schema::create(Config::get('amethyst.{{ PackageName|kebab }}.data.{{ EntityName|kebab }}.table'), function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
             $table->text('description')->nullable();
@@ -26,6 +26,6 @@ class CreateFooBarsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(Config::get('amethyst.package-name.data.foo-bar.table'));
+        Schema::dropIfExists(Config::get('amethyst.{{ PackageName|kebab }}.data.{{ EntityName|kebab }}.table'));
     }
 }

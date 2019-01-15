@@ -1,12 +1,12 @@
 <?php
 
-namespace MyNamespace\Serializers;
+namespace {{ MyNamespace|classify }}\Serializers;
 
 use Illuminate\Support\Collection;
 use Railken\Lem\Contracts\EntityContract;
 use Railken\Lem\Serializer;
 
-class FooBarSerializer extends Serializer
+class {{ EntityName|classify }}Serializer extends Serializer
 {
     /**
      * Serialize entity.

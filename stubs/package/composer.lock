@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e90f45b1b25d72c60a1b6976775d8009",
+    "content-hash": "4aae8835ba6e9e374bbac41a6d26c9b2",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -939,16 +939,16 @@
         },
         {
             "name": "railken/amethyst-api",
-            "version": "v0.1.10",
+            "version": "v0.1.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/railken/amethyst-api.git",
-                "reference": "a05d7c0c0d2d1af7c54e32757501f3f93ea039b9"
+                "reference": "7e32610a1618a0614ad20d289cb6b124fdac781a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/railken/amethyst-api/zipball/a05d7c0c0d2d1af7c54e32757501f3f93ea039b9",
-                "reference": "a05d7c0c0d2d1af7c54e32757501f3f93ea039b9",
+                "url": "https://api.github.com/repos/railken/amethyst-api/zipball/7e32610a1618a0614ad20d289cb6b124fdac781a",
+                "reference": "7e32610a1618a0614ad20d289cb6b124fdac781a",
                 "shasum": ""
             },
             "require": {
@@ -982,7 +982,7 @@
             "keywords": [
                 "laravel"
             ],
-            "time": "2018-10-28T11:34:22+00:00"
+            "time": "2019-01-14T02:07:26+00:00"
         },
         {
             "name": "railken/amethyst-common",
@@ -1023,52 +1023,6 @@
                 "laravel"
             ],
             "time": "2018-12-20T14:57:55+00:00"
-        },
-        {
-            "name": "railken/amethyst-taxonomy",
-            "version": "v0.1.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/railken/amethyst-taxonomy.git",
-                "reference": "5bbd43a4279b2d1674959384f40b29c7b72762ea"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/railken/amethyst-taxonomy/zipball/5bbd43a4279b2d1674959384f40b29c7b72762ea",
-                "reference": "5bbd43a4279b2d1674959384f40b29c7b72762ea",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.1",
-                "railken/amethyst-common": "0.1.*"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.8",
-                "orchestra/testbench": "3.6.*",
-                "phpstan/phpstan": "^0.10",
-                "phpunit/phpunit": "~7.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Railken\\Amethyst\\Providers\\TaxonomyServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Railken\\Amethyst\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "keywords": [
-                "api"
-            ],
-            "time": "2018-10-28T18:32:16+00:00"
         },
         {
             "name": "railken/bag",
@@ -3466,16 +3420,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "7.5.1",
+            "version": "7.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "c23d78776ad415d5506e0679723cb461d71f488f"
+                "reference": "7c89093bd00f7d5ddf0ab81dee04f801416b4944"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c23d78776ad415d5506e0679723cb461d71f488f",
-                "reference": "c23d78776ad415d5506e0679723cb461d71f488f",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/7c89093bd00f7d5ddf0ab81dee04f801416b4944",
+                "reference": "7c89093bd00f7d5ddf0ab81dee04f801416b4944",
                 "shasum": ""
             },
             "require": {
@@ -3546,58 +3500,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2018-12-12T07:20:32+00:00"
-        },
-        {
-            "name": "railken/amethyst-foo",
-            "version": "v0.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/railken/amethyst-foo.git",
-                "reference": "aa1b413e5b709aa8623d4f1775a584ba6d8bd6f3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/railken/amethyst-foo/zipball/aa1b413e5b709aa8623d4f1775a584ba6d8bd6f3",
-                "reference": "aa1b413e5b709aa8623d4f1775a584ba6d8bd6f3",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.1",
-                "railken/amethyst-common": "0.1.*"
-            },
-            "require-dev": {
-                "orchestra/testbench": "3.6.*",
-                "phpunit/phpunit": "~7.0"
-            },
-            "type": "library",
-            "extra": {
-                "amethyst": {
-                    "package": "foo",
-                    "namespace": "Railken\\Amethyst"
-                },
-                "laravel": {
-                    "providers": [
-                        "Railken\\Amethyst\\Providers\\FooServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Railken\\Amethyst\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "keywords": [
-                "amethyst",
-                "amethyst-foo",
-                "foo",
-                "laravel"
-            ],
-            "time": "2019-01-03T17:34:06+00:00"
+            "time": "2019-01-15T08:19:08+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",

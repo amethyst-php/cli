@@ -1,16 +1,16 @@
 <?php
 
-namespace MyNamespace\Managers;
+namespace {{ MyNamespace|classify }}\Managers;
 
 use Railken\Amethyst\Common\ConfigurableManager;
 use Railken\Lem\Manager;
 
-class FooBarManager extends Manager
+class {{ EntityName|classify }}Manager extends Manager
 {
     use ConfigurableManager;
 
     /**
      * @var string
      */
-    protected $config = 'amethyst.package-name.data.foo-bar';
+    protected $config = 'amethyst.{{ PackageName|kebab }}.data.{{ EntityName|kebab }}';
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace MyNamespace\Http\Controllers\Admin;
+namespace {{ MyNamespace|classify }}\Http\Controllers\Admin;
 
 use Railken\Amethyst\Api\Http\Controllers\RestManagerController;
 use Railken\Amethyst\Api\Http\Controllers\Traits as RestTraits;
-use MyNamespace\Managers\FooBarManager;
+use {{ MyNamespace|classify }}\Managers\{{ EntityName|classify }}Manager;
 
-class FooBarsController extends RestManagerController
+class {{ EntityName|pluralize|classify }}Controller extends RestManagerController
 {
     use RestTraits\RestIndexTrait;
     use RestTraits\RestShowTrait;
@@ -19,5 +19,5 @@ class FooBarsController extends RestManagerController
      *
      * @var string
      */
-    public $class = FooBarManager::class;
+    public $class = {{ EntityName|classify }}Manager::class;
 }

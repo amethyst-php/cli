@@ -1,9 +1,9 @@
 <?php
 
-namespace MyNamespace\Repositories;
+namespace {{ MyNamespace|classify }}\Repositories;
 
 use Railken\Lem\Repository;
 
-class FooBarRepository extends Repository
+class {{ EntityName|classify }}Repository extends Repository
 {
 }

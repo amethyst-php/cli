@@ -7,6 +7,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
+use Railken\Dotenv\Dotenv;
 
 class LibraryInitializeCommand extends Command
 {
@@ -65,5 +66,6 @@ class LibraryInitializeCommand extends Command
             'composer\.lock',
             'build/',
         ]));
+
     }
 }

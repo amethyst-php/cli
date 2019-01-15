@@ -1,12 +1,12 @@
 <?php
 
-namespace MyNamespace\Tests\Http\Admin;
+namespace {{ MyNamespace|classify }}\Tests\Http\Admin;
 
 use Railken\Amethyst\Api\Support\Testing\TestableBaseTrait;
-use MyNamespace\Fakers\FooBarFaker;
-use MyNamespace\Tests\BaseTest;
+use {{ MyNamespace|classify }}\Fakers\{{ EntityName|classify }}Faker;
+use {{ MyNamespace|classify }}\Tests\BaseTest;
 
-class FooBarTest extends BaseTest
+class {{ EntityName|classify }}Test extends BaseTest
 {
     use TestableBaseTrait;
 
@@ -15,7 +15,7 @@ class FooBarTest extends BaseTest
      *
      * @var string
      */
-    protected $faker = FooBarFaker::class;
+    protected $faker = {{ EntityName|classify }}Faker::class;
 
     /**
      * Router group resource.
@@ -29,5 +29,5 @@ class FooBarTest extends BaseTest
      *
      * @var string
      */
-    protected $route = 'admin.foo-bar';
+    protected $route = 'admin.{{ EntityName|kebab }}';
 }
