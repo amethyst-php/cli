@@ -14,9 +14,9 @@ Go inside the folder project
 	
 	cd <my-package>
     
-Execute the command init and follow the steps
+Execute the command lib:init and follow the steps
 
-    amethyst init
+    amethyst lib:init
     
 Copy the .env.example and configure it
 
@@ -38,8 +38,8 @@ Go inside the folder project
 	
 	cd <my-package>
     
-Execute the command init and follow the steps
+Execute the command and follow the steps
 
-    amethyst data
+    amethyst lib:data
     
 That's it!
