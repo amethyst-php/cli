@@ -55,5 +55,15 @@ class LibraryInitializeCommand extends Command
             'PackageName'         => $package,
             'Author'               => $author,
         ], __DIR__.'/../stubs/package', $input->getOption('dir'));
+
+
+        file_put_contents($input->getOption('dir')."/.gitignore", implode("\n", [
+            'vendor/',
+            'var/',
+            '\.php_cs\.cache/',
+            '\.env',
+            'composer\.lock',
+            'build/',
+        ]));
     }
 }
