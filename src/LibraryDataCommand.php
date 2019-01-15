@@ -66,10 +66,9 @@ class LibraryDataCommand extends Command
         $namespace = $composer->extra()->amethyst->namespace;
 
         $stubs->generateNewFiles([
-            'my-namespace'         => $namespace,
-            'my-escaped-namespace' => str_replace('\\', '\\\\', $namespace),
-            'package-name'         => $package,
-            'foo-bar'              => $data,
+            'MyNamespace'         => $namespace,
+            'PackageName'         => $package,
+            'EntityName'              => $data,
         ], __DIR__.'/../stubs/data', $input->getOption('dir'));
     }
 }

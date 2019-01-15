@@ -84,9 +84,9 @@ class Stubs
 
     public function escapedFilename(string $filename): string
     {
+        $filename = str_replace("__--", "{{", $filename);
+        $filename = str_replace("--__", "}}", $filename);
         $filename = str_replace("__", "|", $filename);
-        $filename = str_replace("|--", "{{", $filename);
-        $filename = str_replace("--|", "}}", $filename);
 
         return $filename;
     }
