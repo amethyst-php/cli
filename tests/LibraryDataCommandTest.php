@@ -55,7 +55,6 @@ class LibraryDataCommandTest extends BaseTest
         $this->assertContains('src/Http/Controllers/Admin/BooksController', $output);
         $this->assertContains('database/migrations/0000_00_00_000000_create_books_table', $output);
 
-
         $vars = [
             'APP_NAME'    => 'Laravel',
             'DB_HOST'     => '127.0.0.1',
@@ -65,9 +64,18 @@ class LibraryDataCommandTest extends BaseTest
             'DB_PASSWORD' => 'secret',
         ];
 
-        copy(__DIR__."/../.env", $this->getDir()."/.env");
+        copy($this->getDir()."/.env.example", $this->getDir()."/.env");
 
-        $process = Process::fromShellCommandline('composer install && ./vendor/bin/phpunit', $this->getDir());
+        array_walk($vars, function(&$a, $b) { 
+            $a = "$b='".getenv($b, $a)."'"; 
+        });
+        $vars = implode(" ", $vars);
+
+
+        $process = Process::fromShellCommandline(implode(' && ', [
+            'composer install',
+            $vars.' ./vendor/bin/phpunit'
+        ]), $this->getDir());
         $process->mustRun(null);
         print_r($process->getOutput());
 	}
