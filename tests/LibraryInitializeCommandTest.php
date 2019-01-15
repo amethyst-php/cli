@@ -21,7 +21,7 @@ class LibraryInitializeCommandTest extends BaseTest
 		$commandTester->setInputs(['test', 'author', 'Author\\Test']);
         $commandTester->execute([
             'command'  => $command->getName(),
-            '--dir'    => __DIR__."/../var/cache"
+            '--dir'    => $this->getDir()
         ]);
 
         $output = $commandTester->getDisplay();
@@ -33,9 +33,12 @@ class LibraryInitializeCommandTest extends BaseTest
         $this->assertContains('phpstan.neon', $output);
         $this->assertContains('phpunit.xml', $output);
         $this->assertContains('.env.example', $output);
-        $this->assertContains('.gitignore', $output);
         $this->assertContains('.travis.yml', $output);
         $this->assertContains('tests/BaseTest', $output);
         $this->assertContains('src/Providers/TestServiceProvider', $output);
+        $this->assertContains('composer.lock', $output);
+
+        $this->assertEquals(true, file_exists($this->getDir()."/.gitignore"));
+
 	}
 }
