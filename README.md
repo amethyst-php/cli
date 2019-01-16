@@ -1,5 +1,7 @@
 # Skeleton Amethyst Tool
 
+[![Build Status](https://travis-ci.org/railken/cli-amethyst.svg?branch=master)](https://travis-ci.org/railken/cli-amethyst)
+
 A package has been created to speed-up the development. Install the package globally.
 
     composer global require railken/cli-amethyst
