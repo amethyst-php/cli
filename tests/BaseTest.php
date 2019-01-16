@@ -6,7 +6,7 @@ abstract class BaseTest extends \PHPUnit\Framework\TestCase
 {
 	public function setUp()
 	{   
-		$dotenv = new \Dotenv\Dotenv(__DIR__.'/..', '.env');
+		$dotenv = \Dotenv\Dotenv::create(__DIR__.'/..', '.env');
         $dotenv->load();
 
         parent::setUp();

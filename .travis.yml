@@ -33,6 +33,7 @@ install:
 before_script:
   - echo 'zend.assertions=1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - echo 'assert.exception=On' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  - touch .env
 
 script:
   - ./vendor/bin/phpunit --coverage-text --coverage-clover=build/logs/clover.xml
