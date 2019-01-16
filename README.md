@@ -10,62 +10,11 @@ If this is your first global composer package, you have to add the composer path
 
     export PATH=$PATH:$HOME/.composer/vendor/bin
 
-## Initialize a new package
+## Commands
 
-Add all the needed file to create an amethyst-package
-
-### Steps
-
-Go inside the folder project
-	
-	cd <my-package>
-    
-Execute the command lib:init and follow the steps
-
-    amethyst lib:init
-    
-Copy the .env.example and configure it
-
-    cp .env.example .env
-    
-Install all vendors packages
-    
-    composer update
-    
-Launch the tests
-
-    ./vendor/bin/phpunit
-
-You're now good to go.
-
-## Add new entity
-
-Models, Validators, Controllers, migrations and more... Generate all of this with one simple command.
-
-### Steps
-
-Go inside the folder project
-	
-	cd <my-package>
-    
-Execute the command and follow the steps
-
-    amethyst lib:data
-    
-That's it!
-
-## Test
-
-Test your package using the standard rules. Runs phpstan, php-cs-fixer and phpunit
-
-### Steps
-
-Go inside the folder project
-    
-    cd <my-package>
-    
-Execute the command and follow the steps
-
-    amethyst test
-    
-That's it!
+| Name     | Description                                   |
+|----------|-----------------------------------------------|
+| lib:init | Initialize the library as an amethyst-package |
+| lib:data | Generate all files to add a brand new entity  |
+| lib:doc  | Generate the documentation of the library     |
+| test     | Test your package using the standard rules    |
