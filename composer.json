@@ -10,9 +10,8 @@
         "corneltek/getoptionkit": "^2.6",
         "symfony/console": "^4.2",
         "laravel/installer": "^2.0",
-        "railken/dotenv": "^0.1.1",
         "rcrowe/twigbridge": "^0.9.6",
-        "railken/template": "^1.0"
+        "vlucas/phpdotenv": "^3.1"
     },
     "require-dev": {
         "phpstan/phpstan": "^0.10",
