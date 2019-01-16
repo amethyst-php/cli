@@ -18,13 +18,13 @@ Remember that the manager return always a [Result](result.md).
 
 #### Extend the class
 
-Create the new manager in `app/Managers/{{ data.className }}Manager`
+Create the new manager in `app/Managers/{{ data.entityName }}Manager`
 ```php
 namespace App\Managers;
 
 use {{ data.components.manager }} as Manager;
 
-class {{ data.className }}Manager extends Manager {
+class {{ data.entityName }}Manager extends Manager {
 	// ...
 }
 ```
@@ -33,7 +33,7 @@ Update the file `configs/amethyst.{{data.package}}` with the new class
 return [
     'data' => [
         '{{ data.name }}' => [
-            'manager' => App\Managers\{{ data.className}}Manager::class,
+            'manager' => App\Managers\{{ data.entityName}}Manager::class,
         ],
     ]
 ];

@@ -14,12 +14,11 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use Eloquent\Composer\Configuration\ConfigurationReader;
-use Orchestra\Testbench\Concerns\CreatesApplication;
+use Symfony\Component\Process\Process;
 
 class LibraryDocumentationCommand extends Command
 {
     use Concerns\Export;
-    use CreatesApplication;
 
     protected static $defaultName = 'lib:doc';
 
@@ -63,22 +62,25 @@ class LibraryDocumentationCommand extends Command
 
         $composer = $this->composerReader->read($composerPath);
 
-        $namePackage = $composer->extra()->amethyst->package;
+        $packageName = $composer->extra()->amethyst->package;
 
-        $app = $this->createApplication();
+        copy(__DIR__."/../bin/bridge", $input->getOption('dir').'/.amethyst-bridge');
 
-        foreach ($composer->extra()->laravel->providers as $provider) {
-            $provider = (new $provider($app));
-            $provider->register();
-            $provider->boot();
-        }
+        $loadInput = base64_encode(serialize((object) [
+            'providers' => $composer->extra()->laravel->providers,
+            'packageName' => $packageName
+        ]));
 
-        $entities = [];
+        try {
+            $process = Process::fromShellCommandline('php .amethyst-bridge '.$loadInput, $input->getOption('dir'));
+            $process->mustRun();
+            print_r($process->getOutput());
+            $entities = unserialize(base64_decode($process->getOutput()));
 
-        foreach ((array) Config::get('amethyst.'.$namePackage.'.data') as $nameData => $data) {
-            if (Arr::get($data, 'manager')) {
-                $entities[] = $this->addData($namePackage, $nameData, $data);
-            }
+            unlink($input->getOption('dir').'/.amethyst-bridge');
+        } catch (\Exception $e) {
+            unlink($input->getOption('dir').'/.amethyst-bridge');
+            throw $e;
         }
 
         $stubs->generateNewFiles([
@@ -88,77 +90,13 @@ class LibraryDocumentationCommand extends Command
 
         foreach ($entities as $entity) {
 
+            $entity['parameters_formatted'] = $this->var_export54($entity['parameters']);
             $stubs->generateNewFiles([
                 'data' => $entity,
-            ], __DIR__.'/../stubs/docs/entity', $input->getOption('dir').'/docs/data/'.$entity['manager']->getName());
+            ], __DIR__.'/../stubs/docs/entity', $input->getOption('dir').'/docs/data/'.$entity['name']);
         }
     }
 
-    /**
-     * Add a data.
-     *
-     * @param string $package
-     * @param string $name
-     * @param array  $data
-     */
-    public function addData(string $package, string $name, array $data): array
-    {
-        $classManager = Arr::get($data, 'manager');
-        $faker = Arr::get($data, 'faker');
-        $className = basename(str_replace('\\', '/', Arr::get($data, 'model')));
-
-        $manager = new $classManager();
-        $entity = $manager->newEntity();
-
-        $errors = [];
-
-        foreach ($manager->getExceptions() as $code => $exception) {
-        }
-
-        foreach ($manager->getAttributes() as $attribute) {
-            foreach ($attribute->getExceptions() as $code => $exception) {
-                if ($code === Tokens::NOT_DEFINED) {
-                    if ($attribute->getRequired()) {
-                        $errors[] = $attribute->newException($code, null);
-                    }
-                } elseif ($code === Tokens::NOT_UNIQUE) {
-                    if ($attribute->getUnique()) {
-                        $errors[] = $attribute->newException($code, null);
-                    }
-                } elseif ($code === Tokens::NOT_VALID) {
-                    if ($attribute->getFillable()) {
-                        $errors[] = $attribute->newException($code, null);
-                    }
-                } elseif ($code === Tokens::NOT_AUTHORIZED) {
-                    if ($attribute->getFillable()) {
-                        $errors[] = $attribute->newException($code, null);
-                    }
-                } else {
-                    $errors[] = $attribute->newException($code, null);
-                }
-            }
-        }
-
-        $permissions = array_values($manager->getAuthorizer()->getPermissions());
-
-        foreach ($manager->getAttributes() as $attribute) {
-            $permissions = array_merge($permissions, array_values($attribute->getPermissions()));
-        }
-
-        return [
-            'className'                              => $className,
-            'name'                                   => $name,
-            'components'                             => $data,
-            'package'                                => $package,
-            'manager'                                => $manager,
-            'entity'                                 => $entity,
-            'instance_shortname'                     => (new \ReflectionClass($manager))->getShortName(),
-            'errors'                                 => $errors,
-            'permissions'                            => $permissions,
-            'parameters'                             => $faker::make()->parameters()->toArray(),
-            'parameters_formatted'                   => $this->var_export54($faker::make()->parameters()->toArray()),
-        ];
-    }
 
     public function getEnvironmentSetUp($app)
     {

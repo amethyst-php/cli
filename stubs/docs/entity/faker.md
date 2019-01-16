@@ -7,18 +7,18 @@ Create a new entity using the faker
 ```php
 use {{ data.components.faker }};
 
-$result = $manager->create({{ data.manager.getName() }}Faker::make()->parameters());
+$result = $manager->create({{ data.manager.entityName }}Faker::make()->parameters());
 ```
 
 #### Extend the class
 
-Create the new faker in `app/Fakers/{{ data.className }}Faker`
+Create the new faker in `app/Fakers/{{ data.entityName }}Faker`
 ```php
 namespace App\Fakers;
 
 use {{ data.components.faker }} as Faker;
 
-class {{ data.className }}Faker extends Faker {
+class {{ data.entityName }}Faker extends Faker {
 	// ...
 }
 ```
@@ -27,7 +27,7 @@ Update the file `configs/amethyst.{{data.package}}` with the new class
 return [
     'data' => [
         '{{ data.name }}' => [
-            'faker' => App\Fakers\{{ data.className}}Faker::class,
+            'faker' => App\Fakers\{{ data.entityName}}Faker::class,
         ],
     ]
 ];

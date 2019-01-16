@@ -1,6 +1,6 @@
-## {{ data.manager.getName() }}
+## {{ data.name | classify }}
 
-{{ data.manager.getComment() }}
+{{ data.description }}
 
 To access the data, you can either use the [manager](manager.md) or directly the [Eloquent model](model.md)
 

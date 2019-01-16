@@ -5,7 +5,7 @@ Once you've got the result you should always check if an error has occurred, if 
 ```php
 use {{ data.components.manager }};
 
-$manager = new {{ data.instance_shortname }}();
+$manager = new {{ data.manager.name }}();
 
 $result = $manager->create({{ data.parameters_formatted | raw }});
 

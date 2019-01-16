@@ -1,0 +1,134 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__.'/vendor/autoload.php';
+
+use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Config;
+use Railken\Lem\Tokens;
+
+
+class Bridge
+{
+    use \Orchestra\Testbench\Concerns\CreatesApplication;
+
+    protected $input;
+
+    public function __construct($input)
+    {
+        $this->input = $input;
+    }
+
+    public function getEnvironmentSetUp($app)
+    {
+
+    }
+
+    public function loadProviders()
+    {
+        $app = $this->createApplication();
+
+        foreach ($this->input->providers as $provider) {
+            $provider = (new $provider($app));
+            $provider->register();
+            $provider->boot();
+        }
+    }
+
+    public function output()
+    {          
+        $entities = [];
+
+        foreach ((array) Config::get('amethyst.'.$this->input->packageName.'.data') as $nameData => $data) {
+            if (Arr::get($data, 'manager')) {
+                $entities[] = $this->addData($this->input->packageName, $nameData, $data);
+            }
+        }
+
+
+
+        return $entities;
+    }
+
+    /**
+     * Add a data.
+     *
+     * @param string $package
+     * @param string $name
+     * @param array  $data
+     */
+    public function addData(string $package, string $name, array $data): array
+    {
+        $classManager = Arr::get($data, 'manager');
+        $faker = Arr::get($data, 'faker');
+        $className = basename(str_replace('\\', '/', Arr::get($data, 'model')));
+
+        $manager = new $classManager();
+
+        $errors = Collection::make();
+
+        foreach ($manager->getAttributes() as $attribute) {
+            foreach ($attribute->getExceptions() as $code => $exception) {
+                if ($code === Tokens::NOT_DEFINED) {
+                    if ($attribute->getRequired()) {
+                        $errors[] = $attribute->newException($code, null);
+                    }
+                } elseif ($code === Tokens::NOT_UNIQUE) {
+                    if ($attribute->getUnique()) {
+                        $errors[] = $attribute->newException($code, null);
+                    }
+                } elseif ($code === Tokens::NOT_VALID) {
+                    if ($attribute->getFillable()) {
+                        $errors[] = $attribute->newException($code, null);
+                    }
+                } elseif ($code === Tokens::NOT_AUTHORIZED) {
+                    if ($attribute->getFillable()) {
+                        $errors[] = $attribute->newException($code, null);
+                    }
+                } else {
+                    $errors[] = $attribute->newException($code, null);
+                }
+            }
+        }
+
+        $permissions = array_values($manager->getAuthorizer()->getPermissions());
+
+        foreach ($manager->getAttributes() as $attribute) {
+            $permissions = array_merge($permissions, array_values($attribute->getPermissions()));
+        }
+
+        return [
+            'entityName'                             => $className,
+            'name'                                   => $name,
+            'description'                            => $manager->getComment(),
+            'components'                             => $data,
+            'manager' => [
+                'class' => get_class($manager),
+                'name' => (new \ReflectionClass($manager))->getShortName(),
+                'attributes' => $manager->getAttributes()->map(function($attribute) {
+                    return [
+                        'name' => $attribute->getName(),
+                        'fillable' => $attribute->getFillable(),
+                        'required' => $attribute->getRequired(),
+                        'unique' => $attribute->getUnique(),
+                        'comment' => $attribute->getComment(),
+                    ];
+                })->toArray()
+            ],
+            'package'                                => $package,
+            'errors'                                 => $errors->map(function($error) {
+                return [
+                    'code' => $error->getCode(),
+                    'message' => $error->getMessage(),
+                ];
+            })->toArray(),
+            'permissions'                            => $permissions,
+            'parameters'                             => $faker::make()->parameters()->toArray(),
+        ];
+    }
+}
+
+$bridge = new Bridge(unserialize(base64_decode($argv[1])));
+$bridge->loadProviders();
+echo base64_encode(serialize($bridge->output()));

@@ -3,5 +3,5 @@
 - [Installation](installation.md)
 - Data
 {% for entity in data %}
-    - [{{ entity.manager.getName() }}](data/{{ entity.manager.getName() }}/index.md)
+    - [{{ entity.name|classify }}](data/{{ entity.name }}/index.md)
 {% endfor %}

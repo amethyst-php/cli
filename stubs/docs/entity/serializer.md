@@ -5,7 +5,7 @@ The serializer is used to serialize an entity, you can retrieve it from the data
 ```php
 use {{ data.components.manager }};
 
-$manager = new {{ data.instance_shortname }}();
+$manager = new {{ data.manager.name }}();
 
 $serializer = $manager->getSerializer();
 
@@ -21,13 +21,13 @@ $serializer->serialize($entity)->toArray(); // Returns an array
 ```
 #### Extend the class
 
-Create the new serializer in `app/Serializers/{{ data.className }}Serializer`
+Create the new serializer in `app/Serializers/{{ data.entityName }}Serializer`
 ```php
 namespace App\Serializers;
 
 use {{ data.components.serializer }} as Serializer;
 
-class {{ data.className }}Serializer extends Serializer {
+class {{ data.entityName }}Serializer extends Serializer {
 	// ...
 }
 ```
@@ -36,7 +36,7 @@ Update the file `configs/amethyst.{{data.package}}` with the new class
 return [
     'data' => [
         '{{ data.name }}' => [
-            'serializer' => App\Serializers\{{ data.className}}Serializer::class,
+            'serializer' => App\Serializers\{{ data.entityName}}Serializer::class,
         ],
     ]
 ];

@@ -7,13 +7,13 @@ You have to go in the file `configs/amethyst.{{data.package}}` in order to chang
 
 #### Extend the class
 
-Create the new model in `app/Models/{{ data.className }}`
+Create the new model in `app/Models/{{ data.entityName }}`
 ```php
 namespace App\Models;
 
 use {{ data.components.model }} as Model;
 
-class {{ data.className }} extends Model {
+class {{ data.entityName }} extends Model {
 	// ...
 }
 ```
@@ -22,7 +22,7 @@ Update the file `configs/amethyst.{{data.package}}` with the new class
 return [
     'data' => [
         '{{ data.name }}' => [
-            'model' => App\Models\{{ data.className}}::class,
+            'model' => App\Models\{{ data.entityName}}::class,
         ],
     ]
 ];

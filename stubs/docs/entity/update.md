@@ -6,7 +6,7 @@ Define a new instance of the [Manager](manager.md)
 ```php
 use {{ data.components.manager }};
 
-$manager = new {{ data.instance_shortname }}();
+$manager = new {{ data.manager.name }}();
 ```
 
 Retrieve an [entity](model.md) using the [repository](repository.md)

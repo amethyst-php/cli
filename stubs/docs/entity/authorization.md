@@ -24,7 +24,7 @@ You can use whatever permission-library suits you to implement this method
 ```php
 use {{ data.components.manager }};
 
-$manager = new {{ data.instance_shortname }}($user);
+$manager = new {{ data.manager.name }}($user);
 
 ```
 

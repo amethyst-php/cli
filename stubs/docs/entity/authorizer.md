@@ -4,13 +4,13 @@ The authorizer is used during any operation that manipulate the data to check if
 
 #### Extend the class
 
-Create the new authorizer in `app/Authorizers/{{ data.className }}Authorizer`
+Create the new authorizer in `app/Authorizers/{{ data.entityName }}Authorizer`
 ```php
 namespace App\Authorizers;
 
 use {{ data.components.authorizer }} as Authorizer;
 
-class {{ data.className }}Authorizer extends Authorizer {
+class {{ data.entityName }}Authorizer extends Authorizer {
 	// ...
 }
 ```
@@ -19,7 +19,7 @@ Update the file `configs/amethyst.{{data.package}}` with the new class
 return [
     'data' => [
         '{{ data.name }}' => [
-            'authorizer' => App\Authorizers\{{ data.className}}Authorizer::class,
+            'authorizer' => App\Authorizers\{{ data.entityName}}Authorizer::class,
         ],
     ]
 ];
