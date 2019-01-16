@@ -38,9 +38,15 @@ class TestCommand extends Command
                      __DIR__.'/../resources/phpstan.neon'
                 );
 
-                $output->writeln(sprintf('<info>phpstan fix %s</info>', $target));
+                $output->writeln(sprintf('<info>phpstan fix %s ...</info>', $target));
+
+
                 $process = Process::fromShellCommandline($command, $input->getOption('dir'));
-                $process->run(null);
+                $process->start();
+
+                foreach ($process as $type => $data) {
+                    echo $data;
+                }
             }
         }
 
@@ -49,14 +55,19 @@ class TestCommand extends Command
         foreach ($targets as $target) {
             if (file_exists($input->getOption('dir').'/'.$target)) {
                 $command = sprintf(
-                    '%s/vendor/php-cs-fixer fix %s --allow-risky="yes" --config=%s',
+                    '%s/vendor/bin/php-cs-fixer fix %s --allow-risky="yes" --config=%s',
                     __DIR__.'/..',
                     $target,
                     __DIR__.'/../resources/.php_cs.dist'
                 );
                 $output->writeln(sprintf('<info>php-cs-fixer fix %s</info>', $target));
                 $process = Process::fromShellCommandline($command, $input->getOption('dir'));
-                $process->run(null);
+
+                $process->start();
+
+                foreach ($process as $type => $data) {
+                    echo $data;
+                }
             }
         }
 
