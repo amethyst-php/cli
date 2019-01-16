@@ -1,0 +1,21 @@
+<?php
+
+$finder = PhpCsFixer\Finder::create()
+    ->in(__DIR__)
+;
+
+return PhpCsFixer\Config::create()
+    ->setRules([
+        '@PSR2' => true,
+        '@Symfony' => true,
+        'strict_param' => true,
+        'array_syntax' => ['syntax' => 'short'],
+        'yoda_style' => false,
+  		'binary_operator_spaces' => [
+  			'align_double_arrow' => true,
+  			'ordered_imports' => true,
+  			'ordered_class_elements' => true
+  		]
+    ])
+    ->setFinder($finder)
+;
