@@ -7,7 +7,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
-use Railken\Dotenv\Dotenv;
 
 class LibraryInitializeCommand extends Command
 {
@@ -52,13 +51,12 @@ class LibraryInitializeCommand extends Command
         $prefix = $helper->ask($input, $output, $question);*/
 
         $stubs->generateNewFiles([
-            'MyNamespace'         => $namespace,
-            'PackageName'         => $package,
+            'MyNamespace'          => $namespace,
+            'PackageName'          => $package,
             'Author'               => $author,
         ], __DIR__.'/../stubs/package', $input->getOption('dir'));
 
-
-        file_put_contents($input->getOption('dir')."/.gitignore", implode("\n", [
+        file_put_contents($input->getOption('dir').'/.gitignore', implode("\n", [
             'vendor/',
             'var/',
             '\.php_cs\.cache/',
@@ -66,6 +64,5 @@ class LibraryInitializeCommand extends Command
             'composer\.lock',
             'build/',
         ]));
-
     }
 }

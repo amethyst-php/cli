@@ -8,35 +8,31 @@ use Symfony\Component\Process\Process;
 
 class LibraryDataCommandTest extends BaseTest
 {
-	public function testLibraryDataCommand()
-	{
-
-		$application = new Application();
+    public function testLibraryDataCommand()
+    {
+        $application = new Application();
 
         $application->add(new \Railken\Amethyst\Cli\LibraryDataCommand());
-		$application->add(new \Railken\Amethyst\Cli\LibraryInitializeCommand());
-
+        $application->add(new \Railken\Amethyst\Cli\LibraryInitializeCommand());
 
         $command = $application->find('lib:init');
-		$commandTester = new CommandTester($command);
+        $commandTester = new CommandTester($command);
         $commandTester->setInputs([
-            'test', 
-            'author', 
-            'Author\\Test'
-
+            'test',
+            'author',
+            'Author\\Test',
         ]);
         $commandTester->execute([
             'command'  => $command->getName(),
-            '--dir'    => $this->getDir()
+            '--dir'    => $this->getDir(),
         ]);
-
 
         $command = $application->find('lib:data');
         $commandTester = new CommandTester($command);
         $commandTester->setInputs(['', '']);
         $commandTester->execute([
             'command'  => $command->getName(),
-            '--dir'    => $this->getDir()
+            '--dir'    => $this->getDir(),
         ]);
 
         $output = $commandTester->getDisplay();
@@ -63,19 +59,18 @@ class LibraryDataCommandTest extends BaseTest
             'DB_PASSWORD' => 'secret',
         ];
 
-        copy($this->getDir()."/.env.example", $this->getDir()."/.env");
+        copy($this->getDir().'/.env.example', $this->getDir().'/.env');
 
-        array_walk($vars, function(&$a, $b) { 
-            $a = "$b='".getenv($b, $a)."'"; 
+        array_walk($vars, function (&$a, $b) {
+            $a = "$b='".getenv($b, $a)."'";
         });
-        $vars = implode(" ", $vars);
-
+        $vars = implode(' ', $vars);
 
         $process = Process::fromShellCommandline(implode(' && ', [
             'composer install',
-            $vars.' ./vendor/bin/phpunit'
+            $vars.' ./vendor/bin/phpunit',
         ]), $this->getDir());
         $process->mustRun(null);
         print_r($process->getOutput());
-	}
+    }
 }

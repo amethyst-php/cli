@@ -2,8 +2,8 @@
 
 namespace Railken\Amethyst\Cli\Concerns;
 
-trait Export{
-
+trait Export
+{
     public function var_export54($var, $indent = '')
     {
         switch (gettype($var)) {
@@ -25,5 +25,4 @@ trait Export{
                 return var_export($var, true);
         }
     }
-
 }

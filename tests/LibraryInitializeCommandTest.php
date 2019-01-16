@@ -7,25 +7,24 @@ use Symfony\Component\Console\Tester\CommandTester;
 
 class LibraryInitializeCommandTest extends BaseTest
 {
-	public function testLibraryInitializeCommand()
-	{
+    public function testLibraryInitializeCommand()
+    {
+        $application = new Application();
 
-		$application = new Application();
-
-		$application->add(new \Railken\Amethyst\Cli\LibraryInitializeCommand());
+        $application->add(new \Railken\Amethyst\Cli\LibraryInitializeCommand());
 
         $command = $application->find('lib:init');
 
-		$commandTester = new CommandTester($command);
-		$commandTester->setInputs([
-            'test', 
-            'author', 
-            'Author\\Test'
+        $commandTester = new CommandTester($command);
+        $commandTester->setInputs([
+            'test',
+            'author',
+            'Author\\Test',
         ]);
 
         $commandTester->execute([
             'command'  => $command->getName(),
-            '--dir'    => $this->getDir()
+            '--dir'    => $this->getDir(),
         ]);
 
         $output = $commandTester->getDisplay();
@@ -42,7 +41,6 @@ class LibraryInitializeCommandTest extends BaseTest
         $this->assertContains('src/Providers/TestServiceProvider', $output);
         $this->assertContains('composer.lock', $output);
 
-        $this->assertEquals(true, file_exists($this->getDir()."/.gitignore"));
-
-	}
+        $this->assertEquals(true, file_exists($this->getDir().'/.gitignore'));
+    }
 }

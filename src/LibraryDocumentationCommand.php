@@ -2,62 +2,22 @@
 
 namespace Railken\Amethyst\Cli;
 
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Config;
+use Railken\Amethyst\Cli\Generator\DocumentGenerator;
+use Railken\Lem\Tokens;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
-use Railken\Amethyst\Cli\Generator\DocumentGenerator;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Config;
-use Railken\Lem\Tokens;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
 
 class LibraryDocumentationCommand extends Command
 {
-    protected static $defaultName = 'lib:doc';
-
     use Concerns\Export;
-
-    protected function configure()
-    {
-        $this
-            ->setDescription('Generate the documentation for the library.')
-            ->addOption('dir', null, InputOption::VALUE_REQUIRED, 'Target directory', getcwd())
-            ->addOption('dir', null, InputOption::VALUE_REQUIRED, 'Target directory', getcwd())
-        ;
-    }
-
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
-        $stubs = new Stubs($output);
-
-        $helper = $this->getHelper('question');
-
-        $composerPath = $input->getOption('dir').'/composer.json';
-        $question = new Question(sprintf('Composer location <comment>[%s]</comment>: ', $composerPath), $composerPath);
-        $composerPath = $helper->ask($input, $output, $question);
-
-        if (!file_exists($composerPath)) {
-            return $output->writeln(sprintf('<error>File not found: %s</error>', $composerPath));
-        }
-
-        $composer = $this->composerReader->read($composerPath);
-
-        $package = $composer->extra()->amethyst->package;
-        $namespace = $composer->extra()->amethyst->namespace;
-
-
-        $generator = new DocumentGenerator();
-
-
-        $stubs->generateNewFiles([
-            'package' => 'package'
-        ], __DIR__.'/../../stubs/doc/library/index.md', $input->getOption('dir').'/docs');
-
-    }
-
+    protected static $defaultName = 'lib:doc';
 
     /**
      * Generate the documentation.
@@ -161,17 +121,52 @@ class LibraryDocumentationCommand extends Command
         }
 
         $this->data[$className] = [
-            'className'                   => $className,
-            'name'                        => $name,
-            'components'                  => $data,
+            'className'                              => $className,
+            'name'                                   => $name,
+            'components'                             => $data,
             'package'                                => $package,
-            'manager'                     => $manager,
-            'entity'                      => $entity,
-            'instance_shortname'          => (new \ReflectionClass($manager))->getShortName(),
-            'errors'                        => $errors,
-            'permissions'                   => $permissions,
-            'parameters'                  => $faker::make()->parameters()->toArray(),
-            'parameters_formatted'        => $this->var_export54($faker::make()->parameters()->toArray()),
+            'manager'                                => $manager,
+            'entity'                                 => $entity,
+            'instance_shortname'                     => (new \ReflectionClass($manager))->getShortName(),
+            'errors'                                 => $errors,
+            'permissions'                            => $permissions,
+            'parameters'                             => $faker::make()->parameters()->toArray(),
+            'parameters_formatted'                   => $this->var_export54($faker::make()->parameters()->toArray()),
         ];
+    }
+
+    protected function configure()
+    {
+        $this
+            ->setDescription('Generate the documentation for the library.')
+            ->addOption('dir', null, InputOption::VALUE_REQUIRED, 'Target directory', getcwd())
+            ->addOption('dir', null, InputOption::VALUE_REQUIRED, 'Target directory', getcwd())
+        ;
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $stubs = new Stubs($output);
+
+        $helper = $this->getHelper('question');
+
+        $composerPath = $input->getOption('dir').'/composer.json';
+        $question = new Question(sprintf('Composer location <comment>[%s]</comment>: ', $composerPath), $composerPath);
+        $composerPath = $helper->ask($input, $output, $question);
+
+        if (!file_exists($composerPath)) {
+            return $output->writeln(sprintf('<error>File not found: %s</error>', $composerPath));
+        }
+
+        $composer = $this->composerReader->read($composerPath);
+
+        $package = $composer->extra()->amethyst->package;
+        $namespace = $composer->extra()->amethyst->namespace;
+
+        $generator = new DocumentGenerator();
+
+        $stubs->generateNewFiles([
+            'package' => 'package',
+        ], __DIR__.'/../../stubs/doc/library/index.md', $input->getOption('dir').'/docs');
     }
 }

@@ -2,9 +2,9 @@
 
 namespace Railken\Amethyst\Cli\Twig;
 
+use Doctrine\Common\Inflector\Inflector;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
-use Doctrine\Common\Inflector\Inflector;
 
 class AppExtension extends AbstractExtension
 {
@@ -26,7 +26,6 @@ class AppExtension extends AbstractExtension
             new TwigFilter('pluralize', [$this, 'pluralize']),
             new TwigFilter('kebab', [$this, 'kebab']),
             new TwigFilter('escapeSlash', [$this, 'escapeSlash']),
-
         ];
     }
 
@@ -52,8 +51,6 @@ class AppExtension extends AbstractExtension
 
     public function escapeSlash(string $string = null)
     {
-        return str_replace("\\", "\\\\", $string);
+        return str_replace('\\', '\\\\', $string);
     }
 }
-
-

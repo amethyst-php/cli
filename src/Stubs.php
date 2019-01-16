@@ -2,13 +2,11 @@
 
 namespace Railken\Amethyst\Cli;
 
-use Symfony\Component\Console\Output\OutputInterface;
-use Railken\Template\Generators;
 use Railken\Amethyst\Cli\Twig\AppExtension;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class Stubs
 {
-
     /**
      * @var \Symfony\Component\Console\Output\OutputInterface
      */
@@ -19,7 +17,6 @@ class Stubs
      */
     public $twig;
 
-
     /**
      * Create a new instance.
      *
@@ -29,7 +26,7 @@ class Stubs
     {
         $this->output = $output;
 
-        $this->twig = new \Twig_Environment(new \Twig_Loader_Array(array()));
+        $this->twig = new \Twig_Environment(new \Twig_Loader_Array([]));
 
         $this->twig->addExtension(new AppExtension());
     }
@@ -65,7 +62,6 @@ class Stubs
             if (!is_dir($file)) {
                 $newfile = str_replace($source, '', $file);
 
-
                 $content = $this->twig->createTemplate(file_get_contents($file))->render($data);
                 $newfile = $this->twig->createTemplate($this->escapedFilename($newfile))->render($data);
 
@@ -84,9 +80,9 @@ class Stubs
 
     public function escapedFilename(string $filename): string
     {
-        $filename = str_replace("__--", "{{", $filename);
-        $filename = str_replace("--__", "}}", $filename);
-        $filename = str_replace("__", "|", $filename);
+        $filename = str_replace('__--', '{{', $filename);
+        $filename = str_replace('--__', '}}', $filename);
+        $filename = str_replace('__', '|', $filename);
 
         return $filename;
     }
