@@ -5,7 +5,6 @@ namespace Railken\Amethyst\Tests;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Process\Process;
-use Railken\Dotenv\Dotenv;
 
 class LibraryDataCommandTest extends BaseTest
 {
