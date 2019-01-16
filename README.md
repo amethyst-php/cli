@@ -14,7 +14,7 @@ If this is your first global composer package, you have to add the composer path
 
 | Name     | Description                                   |
 |----------|-----------------------------------------------|
-| lib:init | Initialize the library as an amethyst-package |
-| lib:data | Generate all files to add a brand new entity  |
-| lib:doc  | Generate the documentation of the library     |
-| test     | Test your package using the standard rules    |
+| amethyst lib:init | Initialize the library as an amethyst-package |
+| amethyst lib:data | Generate all files to add a brand new entity  |
+| amethyst lib:doc  | Generate the documentation of the library     |
+| amethyst test     | Test your package using the standard rules    |
