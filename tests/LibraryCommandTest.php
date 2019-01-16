@@ -90,7 +90,6 @@ class LibraryCommandTest extends BaseTest
         ]), $this->getDir());
         $process->mustRun(null);
 
-
         $command = $application->find('lib:doc');
         $commandTester = new CommandTester($command);
         $commandTester->setInputs(['']);
@@ -98,7 +97,6 @@ class LibraryCommandTest extends BaseTest
             'command'  => $command->getName(),
             '--dir'    => $this->getDir(),
         ]);
-
 
         $command = $application->find('test');
         $commandTester = new CommandTester($command);

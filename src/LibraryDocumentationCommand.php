@@ -2,18 +2,12 @@
 
 namespace Railken\Amethyst\Cli;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Config;
-use Railken\Amethyst\Cli\Generator\DocumentGenerator;
-use Railken\Lem\Tokens;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
+use Eloquent\Composer\Configuration\ConfigurationReader;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
-use Eloquent\Composer\Configuration\ConfigurationReader;
 use Symfony\Component\Process\Process;
 
 class LibraryDocumentationCommand extends Command
@@ -37,6 +31,11 @@ class LibraryDocumentationCommand extends Command
         parent::__construct();
     }
 
+    public function getEnvironmentSetUp($app)
+    {
+        return;
+    }
+
     protected function configure()
     {
         $this
@@ -44,7 +43,6 @@ class LibraryDocumentationCommand extends Command
             ->addOption('dir', null, InputOption::VALUE_REQUIRED, 'Target directory', getcwd())
         ;
     }
-
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -64,17 +62,16 @@ class LibraryDocumentationCommand extends Command
 
         $packageName = $composer->extra()->amethyst->package;
 
-        copy(__DIR__."/../bin/bridge", $input->getOption('dir').'/.amethyst-bridge');
+        copy(__DIR__.'/../bin/bridge', $input->getOption('dir').'/.amethyst-bridge');
 
         $loadInput = base64_encode(serialize((object) [
-            'providers' => $composer->extra()->laravel->providers,
-            'packageName' => $packageName
+            'providers'   => $composer->extra()->laravel->providers,
+            'packageName' => $packageName,
         ]));
 
         try {
             $process = Process::fromShellCommandline('php .amethyst-bridge '.$loadInput, $input->getOption('dir'));
             $process->mustRun();
-            print_r($process->getOutput());
             $entities = unserialize(base64_decode($process->getOutput()));
 
             unlink($input->getOption('dir').'/.amethyst-bridge');
@@ -84,23 +81,15 @@ class LibraryDocumentationCommand extends Command
         }
 
         $stubs->generateNewFiles([
-            'data' => $entities,
+            'data'                => $entities,
             'composerPackageName' => $composer->name(),
         ], __DIR__.'/../stubs/docs/library', $input->getOption('dir').'/docs');
 
         foreach ($entities as $entity) {
-
             $entity['parameters_formatted'] = $this->var_export54($entity['parameters']);
             $stubs->generateNewFiles([
                 'data' => $entity,
             ], __DIR__.'/../stubs/docs/entity', $input->getOption('dir').'/docs/data/'.$entity['name']);
         }
     }
-
-
-    public function getEnvironmentSetUp($app)
-    {
-        return;
-    }
-
 }
