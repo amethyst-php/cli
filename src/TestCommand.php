@@ -38,15 +38,11 @@ class TestCommand extends Command
                      __DIR__.'/../resources/phpstan.neon'
                 );
 
-                $output->writeln(sprintf('<info>phpstan fix %s ...</info>', $target));
+                $output->writeln(sprintf('<info>phpstan fix %s</info>', $target));
 
 
                 $process = Process::fromShellCommandline($command, $input->getOption('dir'));
-                $process->start();
-
-                foreach ($process as $type => $data) {
-                    echo $data;
-                }
+                $this->startProcess($process);
             }
         }
 
@@ -62,12 +58,7 @@ class TestCommand extends Command
                 );
                 $output->writeln(sprintf('<info>php-cs-fixer fix %s</info>', $target));
                 $process = Process::fromShellCommandline($command, $input->getOption('dir'));
-
-                $process->start();
-
-                foreach ($process as $type => $data) {
-                    echo $data;
-                }
+                $this->startProcess($process);
             }
         }
 
@@ -75,6 +66,15 @@ class TestCommand extends Command
         $output->writeln('<info>phpunit</info>');
         $command = sprintf($command);
         $process = Process::fromShellCommandline($command, $input->getOption('dir'));
-        $process->run(null);
+        $this->startProcess($process);
+    }
+
+    public function startProcess($process)
+    {
+        $process->start();
+
+        foreach ($process as $type => $data) {
+            echo $data;
+        }
     }
 }

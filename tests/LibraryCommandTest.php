@@ -14,7 +14,6 @@ class LibraryCommandTest extends BaseTest
 
         $application->add(new \Railken\Amethyst\Cli\LibraryDataCommand());
         $application->add(new \Railken\Amethyst\Cli\LibraryInitializeCommand());
-        $application->add(new \Railken\Amethyst\Cli\LibraryDocumentationCommand());
         $application->add(new \Railken\Amethyst\Cli\TestCommand());
 
         $command = $application->find('lib:init');
@@ -89,14 +88,6 @@ class LibraryCommandTest extends BaseTest
             $vars.' ./vendor/bin/phpunit',
         ]), $this->getDir());
         $process->mustRun(null);
-
-        $command = $application->find('lib:doc');
-        $commandTester = new CommandTester($command);
-        $commandTester->setInputs(['']);
-        $commandTester->execute([
-            'command'  => $command->getName(),
-            '--dir'    => $this->getDir(),
-        ]);
 
         $command = $application->find('test');
         $commandTester = new CommandTester($command);
