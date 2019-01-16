@@ -13,60 +13,85 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
+use Eloquent\Composer\Configuration\ConfigurationReader;
+use Orchestra\Testbench\Concerns\CreatesApplication;
 
 class LibraryDocumentationCommand extends Command
 {
     use Concerns\Export;
+    use CreatesApplication;
+
     protected static $defaultName = 'lib:doc';
 
     /**
-     * Generate the documentation.
-     *
-     * @param string $stubs
-     * @param string $destination
+     * @var \Eloquent\Composer\Configuration\ConfigurationReader
      */
-    public function generateAll(string $stubs, string $destination)
-    {
-        // Use config to retrieve all datas
-
-        foreach (Config::get('amethyst') as $namePackage => $package) {
-            foreach ((array) Arr::get($package, 'data') as $nameData => $data) {
-                if (Arr::get($data, 'manager')) {
-                    $this->addData($namePackage, $nameData, $data);
-                }
-            }
-        }
-
-        $this->generateFile($stubs.'/index.md', $destination.'/index.md', [
-            'data' => $this->data,
-        ]);
-        $this->generateFile($stubs.'/installation.md', $destination.'/installation.md');
-
-        foreach ($this->data as $data) {
-            foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($stubs.'/entity/')) as $filename) {
-                if (is_file($filename)) {
-                    $filename = basename($filename);
-
-                    $this->generateFile($stubs.'/entity/'.$filename, $destination.'/entity/'.Arr::get($data, 'manager')->getName().'/'.$filename, [
-                        'data' => $data,
-                    ]);
-                }
-            }
-        }
-    }
+    protected $composerReader;
 
     /**
-     * Parse content.
-     *
-     * @param string $content
-     *
-     * @return string
+     * Create a new instance of the command.
      */
-    public function parseContent(string $content, array $data = []): string
+    public function __construct()
     {
-        $twig = new \Twig_Environment(new \Twig_Loader_String());
+        $this->composerReader = new ConfigurationReader();
 
-        return $twig->render($content, $data);
+        parent::__construct();
+    }
+
+    protected function configure()
+    {
+        $this
+            ->setDescription('Generate the documentation for the library.')
+            ->addOption('dir', null, InputOption::VALUE_REQUIRED, 'Target directory', getcwd())
+        ;
+    }
+
+
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $stubs = new Stubs($output);
+
+        $helper = $this->getHelper('question');
+
+        $composerPath = $input->getOption('dir').'/composer.json';
+        $question = new Question(sprintf('Composer location <comment>[%s]</comment>: ', $composerPath), $composerPath);
+        $composerPath = $helper->ask($input, $output, $question);
+
+        if (!file_exists($composerPath)) {
+            return $output->writeln(sprintf('<error>File not found: %s</error>', $composerPath));
+        }
+
+        $composer = $this->composerReader->read($composerPath);
+
+        $namePackage = $composer->extra()->amethyst->package;
+
+        $app = $this->createApplication();
+
+        foreach ($composer->extra()->laravel->providers as $provider) {
+            $provider = (new $provider($app));
+            $provider->register();
+            $provider->boot();
+        }
+
+        $entities = [];
+
+        foreach ((array) Config::get('amethyst.'.$namePackage.'.data') as $nameData => $data) {
+            if (Arr::get($data, 'manager')) {
+                $entities[] = $this->addData($namePackage, $nameData, $data);
+            }
+        }
+
+        $stubs->generateNewFiles([
+            'data' => $entities,
+            'composerPackageName' => $composer->name(),
+        ], __DIR__.'/../stubs/docs/library', $input->getOption('dir').'/docs');
+
+        foreach ($entities as $entity) {
+
+            $stubs->generateNewFiles([
+                'data' => $entity,
+            ], __DIR__.'/../stubs/docs/entity', $input->getOption('dir').'/docs/data/'.$entity['manager']->getName());
+        }
     }
 
     /**
@@ -76,7 +101,7 @@ class LibraryDocumentationCommand extends Command
      * @param string $name
      * @param array  $data
      */
-    public function addData(string $package, string $name, array $data)
+    public function addData(string $package, string $name, array $data): array
     {
         $classManager = Arr::get($data, 'manager');
         $faker = Arr::get($data, 'faker');
@@ -120,7 +145,7 @@ class LibraryDocumentationCommand extends Command
             $permissions = array_merge($permissions, array_values($attribute->getPermissions()));
         }
 
-        $this->data[$className] = [
+        return [
             'className'                              => $className,
             'name'                                   => $name,
             'components'                             => $data,
@@ -135,38 +160,9 @@ class LibraryDocumentationCommand extends Command
         ];
     }
 
-    protected function configure()
+    public function getEnvironmentSetUp($app)
     {
-        $this
-            ->setDescription('Generate the documentation for the library.')
-            ->addOption('dir', null, InputOption::VALUE_REQUIRED, 'Target directory', getcwd())
-            ->addOption('dir', null, InputOption::VALUE_REQUIRED, 'Target directory', getcwd())
-        ;
+        return;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
-        $stubs = new Stubs($output);
-
-        $helper = $this->getHelper('question');
-
-        $composerPath = $input->getOption('dir').'/composer.json';
-        $question = new Question(sprintf('Composer location <comment>[%s]</comment>: ', $composerPath), $composerPath);
-        $composerPath = $helper->ask($input, $output, $question);
-
-        if (!file_exists($composerPath)) {
-            return $output->writeln(sprintf('<error>File not found: %s</error>', $composerPath));
-        }
-
-        $composer = $this->composerReader->read($composerPath);
-
-        $package = $composer->extra()->amethyst->package;
-        $namespace = $composer->extra()->amethyst->namespace;
-
-        $generator = new DocumentGenerator();
-
-        $stubs->generateNewFiles([
-            'package' => 'package',
-        ], __DIR__.'/../../stubs/doc/library/index.md', $input->getOption('dir').'/docs');
-    }
 }

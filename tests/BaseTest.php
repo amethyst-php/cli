@@ -2,11 +2,11 @@
 
 namespace Railken\Amethyst\Tests;
 
-abstract class BaseTest extends \PHPUnit\Framework\TestCase
+abstract class BaseTest extends \Orchestra\Testbench\TestCase
 {
     public function setUp()
     {
-        $dotenv = \Dotenv\Dotenv::create(__DIR__.'/..', '.env');
+        $dotenv = new \Dotenv\Dotenv(__DIR__.'/..', '.env');
         $dotenv->load();
 
         parent::setUp();

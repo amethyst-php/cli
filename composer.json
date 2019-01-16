@@ -10,14 +10,13 @@
         "corneltek/getoptionkit": "^2.6",
         "symfony/console": "^4.2",
         "laravel/installer": "^2.0",
-        "rcrowe/twigbridge": "^0.9.6",
-        "vlucas/phpdotenv": "^3.1"
+        "rcrowe/twigbridge": "^0.9.6"
     },
     "require-dev": {
-        "phpstan/phpstan": "^0.10",
         "phpunit/phpunit": "~7.1",
-        "friendsofphp/php-cs-fixer": "^2.8.1",
-        "danielstjules/stringy": "~3.1.0"
+        "orchestra/testbench": "3.6.*",
+        "danielstjules/stringy": "~3.1.0",
+        "railken/amethyst-common": "0.1.*"
     },
     "autoload": {
         "psr-4" : {
@@ -26,7 +25,8 @@
     },
     "autoload-dev": {
         "psr-4": { 
-            "Railken\\Amethyst\\Cli\\Tests\\": "tests/" 
+            "Railken\\Amethyst\\Cli\\Tests\\": "tests/",
+            "Author\\Test\\": "var/cache/src"
         }
     },
     "bin": [
