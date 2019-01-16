@@ -2,7 +2,9 @@
 
 namespace Railken\Amethyst\Tests;
 
-abstract class BaseTest extends \Orchestra\Testbench\TestCase
+use PHPUnit\Framework\TestCase;
+
+abstract class BaseTest extends TestCase
 {
     public function setUp()
     {
