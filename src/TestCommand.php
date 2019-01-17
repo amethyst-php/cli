@@ -32,8 +32,7 @@ class TestCommand extends Command
         foreach ($targets as $target) {
             if (file_exists($input->getOption('dir').'/'.$target)) {
                 $command = sprintf(
-                    '%s/vendor/bin/phpstan analyze %s --level=max -c %s',
-                    __DIR__.'/..',
+                    'phpstan analyze %s --level=max -c %s',
                     $target,
                      __DIR__.'/../resources/phpstan.neon'
                 );
@@ -51,8 +50,7 @@ class TestCommand extends Command
         foreach ($targets as $target) {
             if (file_exists($input->getOption('dir').'/'.$target)) {
                 $command = sprintf(
-                    '%s/vendor/bin/php-cs-fixer fix %s --allow-risky="yes" --config=%s',
-                    __DIR__.'/..',
+                    'php-cs-fixer fix %s --allow-risky="yes" --config=%s',
                     $target,
                     __DIR__.'/../resources/.php_cs.dist'
                 );
