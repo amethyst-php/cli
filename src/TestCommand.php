@@ -69,7 +69,7 @@ class TestCommand extends Command
 
     public function startProcess($process)
     {
-        $process->start();
+        $process->setTty(Process::isTtySupported())->start();
 
         foreach ($process as $type => $data) {
             echo $data;
