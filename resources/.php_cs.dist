@@ -8,7 +8,9 @@ return PhpCsFixer\Config::create()
         'array_syntax' => ['syntax' => 'short'],
         'yoda_style' => false,
   		'binary_operator_spaces' => [
-            'default' => 'align'
+            'operators' => [
+                '=>'  => 'align_single_space_minimal',
+            ]
   		],
         'ordered_imports' => true,
         'ordered_class_elements' => true
