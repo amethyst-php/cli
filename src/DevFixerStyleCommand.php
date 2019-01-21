@@ -10,7 +10,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 
-class DevStatusCommand extends Command
+class DevFixerStyleCommand extends Command
 {
     /**
      * @var \Eloquent\Composer\Configuration\ConfigurationReader
@@ -30,7 +30,7 @@ class DevStatusCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('dev:status')
+            ->setName('dev:fix:style')
             ->setDescription('Check status libraries')
             ->addOption('dir', 'd', InputOption::VALUE_REQUIRED, 'Target directory', getcwd())
         ;
@@ -44,9 +44,9 @@ class DevStatusCommand extends Command
         return strpos($content, 'pass') ? 0 : 1;
     }
 
-    public function testPhpunit(string $dir)
+    public function testStyle(string $dir)
     {
-        $command = $this->getApplication()->find('test:phpunit');
+        $command = $this->getApplication()->find('test:style');
 
         return  intval($command->run(new ArrayInput([
             '--dir' => $dir,
@@ -61,13 +61,22 @@ class DevStatusCommand extends Command
             '--dir' => $dir,
         ]), new \Symfony\Component\Console\Output\BufferedOutput()));
     }
-
     public function runFixStyle(string $dir)
     {
         $command = $this->getApplication()->find('fix:style');
 
         $command->run(new ArrayInput([
             '--dir' => $dir,
+        ]), new \Symfony\Component\Console\Output\BufferedOutput());
+    }
+
+    public function runGitUpdate(string $dir)
+    {
+        $command = $this->getApplication()->find('git:update');
+
+        $command->run(new ArrayInput([
+            '--dir' => $dir,
+            '--message' => 'fix style',
         ]), new \Symfony\Component\Console\Output\BufferedOutput());
     }
     
@@ -90,28 +99,26 @@ class DevStatusCommand extends Command
 
                 $composer = $this->composerReader->read($composerPath);
 
-                $errors += $travisCode = 0; //$this->testTravis($composer->name());
-                $errors += $phpunitCode = 0; //$this->testPhpunit($dir);
                 $errors += $gitCode = $this->testGit($dir);
 
                 $output->writeln(['------------']);
                 $output->writeln([sprintf('Report package: <info>%s</info>', $composer->name())]);
                 $output->writeln(['']);
-                $output->writeln([sprintf('Phpunit: %s', $phpunitCode === 0 ? '<info>Ok</info>' : '<error>Error</error>')]);
-                $output->writeln([sprintf('Travis: %s', $travisCode === 0 ? '<info>Ok</info>' : '<error>Error</error>')]);
-                $output->writeln([sprintf('Git: %s', $gitCode === 0 ? '<info>Ok</info>' : '<error>Detected changes</error>')]);
-                $output->writeln(['']);
-                $output->writeln(['------------']);
-                $output->writeln(['']);
 
-                if ($errors !== 0) {
-                    $question = new ConfirmationQuestion('Shall we continue?');
+                if (($testDiff = $this->testStyle($dir)) !== 0 && $errors === 0) {
 
-                    if (!$helper->ask($input, $output, $question)) {
-                        break;
-                    }
+                    $output->writeln("<info>Applying automatic fix</info>");
+                    die();
+                    $this->runFixStyle($dir);
+                    $this->runGitUpdate($dir);
+                } else {
+                    $output->writeln("<info>Skipped fix style</info>");
+                    $output->writeln(sprintf("Staged files: %s", $errors === 0 ? "<info>No problem</info>": "<error>Found changes</error>"));
+                    $output->writeln(sprintf("Diff: %s", $testDiff === 0 ? "<info>Fixes no needed</info>": "<error>This package need a fix</error>"));
                 }
+
             }
+               
         }
     }
 }
