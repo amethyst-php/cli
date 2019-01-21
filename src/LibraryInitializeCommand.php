@@ -59,7 +59,7 @@ class LibraryInitializeCommand extends Command
         file_put_contents($input->getOption('dir').'/.gitignore', implode("\n", [
             'vendor/',
             'var/',
-            '\.php_cs\.cache/',
+            '\.php_cs\.cache',
             '\.env',
             'composer\.lock',
             'build/',
