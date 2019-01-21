@@ -8,7 +8,6 @@ use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Question\ConfirmationQuestion;
 
 class DevFixerStyleCommand extends Command
 {
@@ -26,16 +25,6 @@ class DevFixerStyleCommand extends Command
 
         parent::__construct();
     }
-
-    protected function configure()
-    {
-        $this
-            ->setName('dev:fix:style')
-            ->setDescription('Check status libraries')
-            ->addOption('dir', 'd', InputOption::VALUE_REQUIRED, 'Target directory', getcwd())
-        ;
-    }
-
 
     public function testTravis(string $packageName)
     {
@@ -61,6 +50,7 @@ class DevFixerStyleCommand extends Command
             '--dir' => $dir,
         ]), new \Symfony\Component\Console\Output\BufferedOutput()));
     }
+
     public function runFixStyle(string $dir)
     {
         $command = $this->getApplication()->find('fix:style');
@@ -75,11 +65,19 @@ class DevFixerStyleCommand extends Command
         $command = $this->getApplication()->find('git:update');
 
         $command->run(new ArrayInput([
-            '--dir' => $dir,
+            '--dir'     => $dir,
             '--message' => 'fix style',
         ]), new \Symfony\Component\Console\Output\BufferedOutput());
     }
-    
+
+    protected function configure()
+    {
+        $this
+            ->setName('dev:fix:style')
+            ->setDescription('Check status libraries')
+            ->addOption('dir', 'd', InputOption::VALUE_REQUIRED, 'Target directory', getcwd())
+        ;
+    }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -106,18 +104,15 @@ class DevFixerStyleCommand extends Command
                 $output->writeln(['']);
 
                 if (($testDiff = $this->testStyle($dir)) !== 0 && $errors === 0) {
-
-                    $output->writeln("<info>Applying automatic fix</info>");
+                    $output->writeln('<info>Applying automatic fix</info>');
                     $this->runFixStyle($dir);
                     $this->runGitUpdate($dir);
                 } else {
-                    $output->writeln("<info>Skipped fix style</info>");
-                    $output->writeln(sprintf("Staged files: %s", $errors === 0 ? "<info>No problem</info>": "<error>Found changes</error>"));
-                    $output->writeln(sprintf("Diff: %s", $testDiff === 0 ? "<info>Fixes no needed</info>": "<error>This package need a fix</error>"));
+                    $output->writeln('<info>Skipped fix style</info>');
+                    $output->writeln(sprintf('Staged files: %s', $errors === 0 ? '<info>No problem</info>' : '<error>Found changes</error>'));
+                    $output->writeln(sprintf('Diff: %s', $testDiff === 0 ? '<info>Fixes no needed</info>' : '<error>This package need a fix</error>'));
                 }
-
             }
-               
         }
     }
 }

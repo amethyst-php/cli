@@ -27,16 +27,6 @@ class DevStatusCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
-    {
-        $this
-            ->setName('dev:status')
-            ->setDescription('Check status libraries')
-            ->addOption('dir', 'd', InputOption::VALUE_REQUIRED, 'Target directory', getcwd())
-        ;
-    }
-
-
     public function testTravis(string $packageName)
     {
         $content = file_get_contents(sprintf('https://api.travis-ci.org/%s.svg', $packageName));
@@ -70,7 +60,6 @@ class DevStatusCommand extends Command
             '--dir' => $dir,
         ]), new \Symfony\Component\Console\Output\BufferedOutput());
     }
-    
 
     public function testStyle(string $dir)
     {
@@ -79,6 +68,15 @@ class DevStatusCommand extends Command
         return  intval($command->run(new ArrayInput([
             '--dir' => $dir,
         ]), new \Symfony\Component\Console\Output\BufferedOutput()));
+    }
+
+    protected function configure()
+    {
+        $this
+            ->setName('dev:status')
+            ->setDescription('Check status libraries')
+            ->addOption('dir', 'd', InputOption::VALUE_REQUIRED, 'Target directory', getcwd())
+        ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -102,7 +100,7 @@ class DevStatusCommand extends Command
                 $output->writeln(['------------']);
                 $output->writeln([sprintf('Package: <info>%s</info>', $composer->name())]);
                 $output->writeln(['']);
-                
+
                 $errors += $travisCode = $this->testTravis($composer->name());
                 $errors += $phpunitCode = $this->testPhpunit($dir);
                 $errors += $gitCode = $this->testGit($dir);
@@ -112,7 +110,7 @@ class DevStatusCommand extends Command
                 $output->writeln([sprintf('Travis: %s', $travisCode === 0 ? '<info>Ok</info>' : '<error>Error</error>')]);
                 $output->writeln([sprintf('Git: %s', $gitCode === 0 ? '<info>Ok</info>' : '<error>Detected changes</error>')]);
                 $output->writeln([sprintf('Style: %s', $styleCode === 0 ? '<info>Ok</info>' : '<error>Error</error>')]);
-                $output->writeln([''],['']);
+                $output->writeln([''], ['']);
 
                 if ($errors !== 0) {
                     $question = new ConfirmationQuestion('Shall we continue?');

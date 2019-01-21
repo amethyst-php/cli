@@ -14,14 +14,13 @@ trait StartProcess
 
         if ($input->getOption('verbose') === false) {
             $process->disableOutput();
-        	$process->run();
+            $process->run();
         } else {
-
-       		$process->start();
-	        foreach ($process as $type => $data) {
-	            echo $data;
-	        }
-    	}
+            $process->start();
+            foreach ($process as $type => $data) {
+                echo $data;
+            }
+        }
 
         return $process->getExitCode();
     }
