@@ -40,7 +40,7 @@ class TestPhpstanCommand extends Command
                      __DIR__.'/../resources/phpstan.neon'
                 );
 
-                $errors += $this->startProcess(Process::fromShellCommandline($command, $input->getOption('dir')));
+                $errors += $this->startProcess($input, $output, Process::fromShellCommandline($command, $input->getOption('dir')));
             }
         }
 

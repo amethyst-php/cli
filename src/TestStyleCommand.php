@@ -40,7 +40,7 @@ class TestStyleCommand extends Command
                     __DIR__.'/../resources/.php_cs.dist'
                 );
 
-                $errors += $this->startProcess(Process::fromShellCommandline($command, $input->getOption('dir')));
+                $errors += $this->startProcess($input, $output, Process::fromShellCommandline($command, $input->getOption('dir')));
             }
         }
 

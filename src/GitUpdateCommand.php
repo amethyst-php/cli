@@ -25,6 +25,6 @@ class GitUpdateCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        return $this->startProcess(Process::fromShellCommandline(sprintf('git add -A && git commit -m "%s"', $input->getOption('message')), $input->getOption('dir')));
+        return $this->startProcess($input, $output, Process::fromShellCommandline(sprintf('git add -A && git commit -m "%s" && git push', $input->getOption('message')), $input->getOption('dir')));
     }
 }

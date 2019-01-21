@@ -72,6 +72,15 @@ class DevStatusCommand extends Command
     }
     
 
+    public function testStyle(string $dir)
+    {
+        $command = $this->getApplication()->find('test:style');
+
+        return  intval($command->run(new ArrayInput([
+            '--dir' => $dir,
+        ]), new \Symfony\Component\Console\Output\BufferedOutput()));
+    }
+
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $stubs = new Stubs($output);
@@ -90,19 +99,20 @@ class DevStatusCommand extends Command
 
                 $composer = $this->composerReader->read($composerPath);
 
-                $errors += $travisCode = 0; //$this->testTravis($composer->name());
-                $errors += $phpunitCode = 0; //$this->testPhpunit($dir);
-                $errors += $gitCode = $this->testGit($dir);
-
                 $output->writeln(['------------']);
-                $output->writeln([sprintf('Report package: <info>%s</info>', $composer->name())]);
+                $output->writeln([sprintf('Package: <info>%s</info>', $composer->name())]);
                 $output->writeln(['']);
+                
+                $errors += $travisCode = $this->testTravis($composer->name());
+                $errors += $phpunitCode = $this->testPhpunit($dir);
+                $errors += $gitCode = $this->testGit($dir);
+                $errors += $styleCode = $this->testStyle($dir);
+
                 $output->writeln([sprintf('Phpunit: %s', $phpunitCode === 0 ? '<info>Ok</info>' : '<error>Error</error>')]);
                 $output->writeln([sprintf('Travis: %s', $travisCode === 0 ? '<info>Ok</info>' : '<error>Error</error>')]);
                 $output->writeln([sprintf('Git: %s', $gitCode === 0 ? '<info>Ok</info>' : '<error>Detected changes</error>')]);
-                $output->writeln(['']);
-                $output->writeln(['------------']);
-                $output->writeln(['']);
+                $output->writeln([sprintf('Style: %s', $styleCode === 0 ? '<info>Ok</info>' : '<error>Error</error>')]);
+                $output->writeln([''],['']);
 
                 if ($errors !== 0) {
                     $question = new ConfirmationQuestion('Shall we continue?');

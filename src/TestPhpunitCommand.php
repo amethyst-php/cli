@@ -32,6 +32,6 @@ class TestPhpunitCommand extends Command
         $command = './vendor/bin/phpunit --coverage-html=./build/reports/phpunit --coverage-clover=build/logs/clover.xml --verbose --debug';
         $command = sprintf($command);
 
-        return $this->startProcess(Process::fromShellCommandline($command, $input->getOption('dir')));
+        return $this->startProcess($input, $output, Process::fromShellCommandline($command, $input->getOption('dir')));
     }
 }

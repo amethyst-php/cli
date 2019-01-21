@@ -38,7 +38,7 @@ class FixerStyleCommand extends Command
                     $target,
                     __DIR__.'/../resources/.php_cs.dist'
                 );
-                $this->startProcess(Process::fromShellCommandline($command, $input->getOption('dir')));
+                $this->startProcess($input, $output, Process::fromShellCommandline($command, $input->getOption('dir')));
             }
         }
     }

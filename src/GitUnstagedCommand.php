@@ -25,6 +25,6 @@ class GitUnstagedCommand extends Command
     {
         $command = 'git diff-index --quiet HEAD --';
 
-        return $this->startProcess(Process::fromShellCommandline($command, $input->getOption('dir')));
+        return $this->startProcess($input, $output, Process::fromShellCommandline($command, $input->getOption('dir')));
     }
 }

@@ -108,7 +108,6 @@ class DevFixerStyleCommand extends Command
                 if (($testDiff = $this->testStyle($dir)) !== 0 && $errors === 0) {
 
                     $output->writeln("<info>Applying automatic fix</info>");
-                    die();
                     $this->runFixStyle($dir);
                     $this->runGitUpdate($dir);
                 } else {

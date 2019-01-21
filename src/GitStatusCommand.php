@@ -24,7 +24,7 @@ class GitStatusCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->startProcess(Process::fromShellCommandline('git status', $input->getOption('dir')));
+        $this->startProcess($input, $output, Process::fromShellCommandline('git status', $input->getOption('dir')));
 
         $command = $this->getApplication()->find('git:unstaged');
 
