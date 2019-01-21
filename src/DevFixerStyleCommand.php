@@ -108,7 +108,6 @@ class DevFixerStyleCommand extends Command
                     $this->runFixStyle($dir);
                     $this->runGitUpdate($dir);
                 } else {
-                    $output->writeln('<info>Skipped fix style</info>');
                     $output->writeln(sprintf('Staged files: %s', $errors === 0 ? '<info>No problem</info>' : '<error>Found changes</error>'));
                     $output->writeln(sprintf('Diff: %s', $testDiff === 0 ? '<info>Fixes no needed</info>' : '<error>This package need a fix</error>'));
                 }
