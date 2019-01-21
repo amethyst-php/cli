@@ -7,15 +7,16 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
-use Symfony\Component\Console\Input\ArrayInput;
 
-class TestCommand extends Command
+class TestPhpstanCommand extends Command
 {
+    use Concerns\StartProcess;
+    
     protected function configure()
     {
         $this
-            ->setName('test')
-            ->setDescription('Test')
+            ->setName('test:phpstan')
+            ->setDescription('Test phpstan')
             ->addOption('dir', null, InputOption::VALUE_REQUIRED, 'Target directory', getcwd())
         ;
     }
@@ -28,16 +29,21 @@ class TestCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $command = $this->getApplication()->find('test:phpunit');
+        $targets = ['app', 'tests', 'src'];
+        $errors = 0;
 
-        $command->run(new ArrayInput([
-            '--dir'  => $input->getOption('dir'),
-        ]), $output);
+        foreach ($targets as $target) {
+            if (file_exists($input->getOption('dir').'/'.$target)) {
+                $command = sprintf(
+                    'phpstan analyze %s --level=max -c %s',
+                    $target,
+                     __DIR__.'/../resources/phpstan.neon'
+                );
 
-        $command = $this->getApplication()->find('test:phpstan');
-        
-        $command->run(new ArrayInput([
-            '--dir'  => $input->getOption('dir'),
-        ]), $output);
+                $errors += $this->startProcess(Process::fromShellCommandline($command, $input->getOption('dir')));
+            }
+        }
+
+        return $errors;
     }
 }

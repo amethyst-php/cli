@@ -7,15 +7,16 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
-use Symfony\Component\Console\Input\ArrayInput;
 
-class TestCommand extends Command
+class FixerStyleCommand extends Command
 {
+    use Concerns\StartProcess;
+
     protected function configure()
     {
         $this
-            ->setName('test')
-            ->setDescription('Test')
+            ->setName('fix:style')
+            ->setDescription('Fix style with php-cs-fixer')
             ->addOption('dir', null, InputOption::VALUE_REQUIRED, 'Target directory', getcwd())
         ;
     }
@@ -28,16 +29,17 @@ class TestCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $command = $this->getApplication()->find('test:phpunit');
+        $targets = ['app', 'tests', 'src', 'database', 'config'];
 
-        $command->run(new ArrayInput([
-            '--dir'  => $input->getOption('dir'),
-        ]), $output);
-
-        $command = $this->getApplication()->find('test:phpstan');
-        
-        $command->run(new ArrayInput([
-            '--dir'  => $input->getOption('dir'),
-        ]), $output);
+        foreach ($targets as $target) {
+            if (file_exists($input->getOption('dir').'/'.$target)) {
+                $command = sprintf(
+                    'php-cs-fixer fix %s --allow-risky="yes" --config=%s',
+                    $target,
+                    __DIR__.'/../resources/.php_cs.dist'
+                );
+                $this->startProcess(Process::fromShellCommandline($command, $input->getOption('dir')));
+            }
+        }
     }
 }

@@ -8,11 +8,13 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
+use Symfony\Component\Console\Output\NullOutput;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\BufferedOutput;
+use Symfony\Component\Console\Question\ConfirmationQuestion;
 
 class DevStatusCommand extends Command
 {
-    protected static $defaultName = 'dev:status';
-
     /**
      * @var \Eloquent\Composer\Configuration\ConfigurationReader
      */
@@ -31,6 +33,7 @@ class DevStatusCommand extends Command
     protected function configure()
     {
         $this
+            ->setName('dev:status')
             ->setDescription('Check status libraries')
             ->addOption('dir', 'd', InputOption::VALUE_REQUIRED, 'Target directory', getcwd())
         ;
@@ -51,18 +54,43 @@ class DevStatusCommand extends Command
             $composerPath = $dir.'/composer.json';
 
             if (is_dir($dir) && file_exists($composerPath)) {
-                $composer = $this->composerReader->read($composerPath);
+                $errors = 0;
 
+                $composer = $this->composerReader->read($composerPath);
                 $output->writeln([sprintf("Found package: <info>%s</info>", $composer->name())]);
 
 
-                $content = file_get_contents(sprintf('https://api.travis-ci.org/%s.svg', $composer->name()));
-                
-                $travisStatus = strpos($content, "pass") ? "<info>Ok</info>" : "<error>Error</error>";
+                $errors += $travisCode = $this->testTravis($composer->name());
+                $errors += $phpunitCode = $this->testPhpunit($dir);
 
-                $output->writeln([sprintf("Travis Status: %s", $travisStatus)]);
                 $output->writeln(['']);
+                $output->writeln([sprintf("Phpunit Status: %s", $phpunitCode === 0 ? "<info>Ok</info>" : "<error>Error</error>")]);
+                $output->writeln([sprintf("Travis Status: %s", $travisCode === 0 ? "<info>Ok</info>" : "<error>Error</error>")]);
+                $output->writeln(['']);
+
+                if ($errors !== 0) {
+                    $question = new ConfirmationQuestion('Shall we continue?');
+
+                    if (!$helper->ask($input, $output, $question)) {
+                        break;
+                    }
+                }
+
             }
         }
+    }
+
+    public function testTravis(string $packageName)
+    {
+        $content = file_get_contents(sprintf('https://api.travis-ci.org/%s.svg', $packageName));                    
+        return strpos($content, "pass") ? 0 : 1;
+    }
+
+    public function testPhpunit(string $dir)
+    {
+        $command = $this->getApplication()->find('test:phpunit');
+        return  intval($command->run(new ArrayInput([
+            '--dir'  => $dir,
+        ]), new \Symfony\Component\Console\Output\BufferedOutput));
     }
 }

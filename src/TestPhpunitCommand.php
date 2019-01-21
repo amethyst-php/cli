@@ -7,15 +7,16 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
-use Symfony\Component\Console\Input\ArrayInput;
 
-class TestCommand extends Command
+class TestPhpunitCommand extends Command
 {
+    use Concerns\StartProcess;
+
     protected function configure()
     {
         $this
-            ->setName('test')
-            ->setDescription('Test')
+            ->setName('test:phpunit')
+            ->setDescription('Test phpunit')
             ->addOption('dir', null, InputOption::VALUE_REQUIRED, 'Target directory', getcwd())
         ;
     }
@@ -28,16 +29,9 @@ class TestCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $command = $this->getApplication()->find('test:phpunit');
-
-        $command->run(new ArrayInput([
-            '--dir'  => $input->getOption('dir'),
-        ]), $output);
-
-        $command = $this->getApplication()->find('test:phpstan');
+        $command = './vendor/bin/phpunit --coverage-html=./build/reports/phpunit --coverage-clover=build/logs/clover.xml --verbose --debug';
+        $command = sprintf($command);
         
-        $command->run(new ArrayInput([
-            '--dir'  => $input->getOption('dir'),
-        ]), $output);
+        return $this->startProcess(Process::fromShellCommandline($command, $input->getOption('dir')));
     }
 }

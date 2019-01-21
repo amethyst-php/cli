@@ -19,4 +19,7 @@ $application->add(new \Railken\Amethyst\Cli\LibraryInitializeCommand());
 $application->add(new \Railken\Amethyst\Cli\LibraryDataCommand());
 $application->add(new \Railken\Amethyst\Cli\DevStatusCommand());
 $application->add(new \Railken\Amethyst\Cli\TestCommand());
+$application->add(new \Railken\Amethyst\Cli\TestPhpunitCommand());
+$application->add(new \Railken\Amethyst\Cli\TestPhpstanCommand());
+$application->add(new \Railken\Amethyst\Cli\FixerStyleCommand());
 $application->run();
