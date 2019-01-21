@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Railken\Amethyst\Cli\Concerns;
 
 use Symfony\Component\Process\Process;
@@ -15,7 +14,6 @@ trait StartProcess
             echo $data;
         }
 
-        
         return $process->getExitCode();
     }
 }

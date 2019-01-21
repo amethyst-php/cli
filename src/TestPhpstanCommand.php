@@ -11,7 +11,7 @@ use Symfony\Component\Process\Process;
 class TestPhpstanCommand extends Command
 {
     use Concerns\StartProcess;
-    
+
     protected function configure()
     {
         $this

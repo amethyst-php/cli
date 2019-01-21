@@ -4,13 +4,10 @@ namespace Railken\Amethyst\Cli;
 
 use Eloquent\Composer\Configuration\ConfigurationReader;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Question\Question;
-use Symfony\Component\Console\Output\NullOutput;
-use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 
 class DevStatusCommand extends Command
@@ -28,6 +25,31 @@ class DevStatusCommand extends Command
         $this->composerReader = new ConfigurationReader();
 
         parent::__construct();
+    }
+
+    public function testTravis(string $packageName)
+    {
+        $content = file_get_contents(sprintf('https://api.travis-ci.org/%s.svg', $packageName));
+
+        return strpos($content, 'pass') ? 0 : 1;
+    }
+
+    public function testPhpunit(string $dir)
+    {
+        $command = $this->getApplication()->find('test:phpunit');
+
+        return  intval($command->run(new ArrayInput([
+            '--dir' => $dir,
+        ]), new \Symfony\Component\Console\Output\BufferedOutput()));
+    }
+
+    public function testGit(string $dir)
+    {
+        $command = $this->getApplication()->find('git:status');
+
+        return  intval($command->run(new ArrayInput([
+            '--dir' => $dir,
+        ]), new \Symfony\Component\Console\Output\BufferedOutput()));
     }
 
     protected function configure()
@@ -49,25 +71,23 @@ class DevStatusCommand extends Command
 
         $helper = $this->getHelper('question');
 
-        foreach(glob($input->getOption('dir')."/*") as $dir) {
-
+        foreach (glob($input->getOption('dir').'/*') as $dir) {
             $composerPath = $dir.'/composer.json';
 
             if (is_dir($dir) && file_exists($composerPath)) {
                 $errors = 0;
 
                 $composer = $this->composerReader->read($composerPath);
-                $output->writeln([sprintf("Found package: <info>%s</info>", $composer->name())]);
-
+                $output->writeln([sprintf('Found package: <info>%s</info>', $composer->name())]);
 
                 $errors += $travisCode = $this->testTravis($composer->name());
                 $errors += $phpunitCode = $this->testPhpunit($dir);
                 $errors += $gitCode = $this->testGit($dir);
 
                 $output->writeln(['']);
-                $output->writeln([sprintf("Phpunit: %s", $phpunitCode === 0 ? "<info>Ok</info>" : "<error>Error</error>")]);
-                $output->writeln([sprintf("Travis: %s", $travisCode === 0 ? "<info>Ok</info>" : "<error>Error</error>")]);
-                $output->writeln([sprintf("Git: %s", $gitCode === 0 ? "<info>Ok</info>" : "<error>Detected changes</error>")]);
+                $output->writeln([sprintf('Phpunit: %s', $phpunitCode === 0 ? '<info>Ok</info>' : '<error>Error</error>')]);
+                $output->writeln([sprintf('Travis: %s', $travisCode === 0 ? '<info>Ok</info>' : '<error>Error</error>')]);
+                $output->writeln([sprintf('Git: %s', $gitCode === 0 ? '<info>Ok</info>' : '<error>Detected changes</error>')]);
                 $output->writeln(['']);
 
                 if ($errors !== 0) {
@@ -77,30 +97,7 @@ class DevStatusCommand extends Command
                         break;
                     }
                 }
-
             }
         }
-    }
-
-    public function testTravis(string $packageName)
-    {
-        $content = file_get_contents(sprintf('https://api.travis-ci.org/%s.svg', $packageName));                    
-        return strpos($content, "pass") ? 0 : 1;
-    }
-
-    public function testPhpunit(string $dir)
-    {
-        $command = $this->getApplication()->find('test:phpunit');
-        return  intval($command->run(new ArrayInput([
-            '--dir'  => $dir,
-        ]), new \Symfony\Component\Console\Output\BufferedOutput));
-    }
-
-    public function testGit(string $dir)
-    {
-        $command = $this->getApplication()->find('git:status');
-        return  intval($command->run(new ArrayInput([
-            '--dir'  => $dir,
-        ]), new \Symfony\Component\Console\Output\BufferedOutput));
     }
 }

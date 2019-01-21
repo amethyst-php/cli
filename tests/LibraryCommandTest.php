@@ -24,8 +24,8 @@ class LibraryCommandTest extends BaseTest
             'Author\\Test',
         ]);
         $commandTester->execute([
-            'command'  => $command->getName(),
-            '--dir'    => $this->getDir(),
+            'command' => $command->getName(),
+            '--dir'   => $this->getDir(),
         ]);
 
         $output = $commandTester->getDisplay();
@@ -48,8 +48,8 @@ class LibraryCommandTest extends BaseTest
         $commandTester = new CommandTester($command);
         $commandTester->setInputs(['', '']);
         $commandTester->execute([
-            'command'  => $command->getName(),
-            '--dir'    => $this->getDir(),
+            'command' => $command->getName(),
+            '--dir'   => $this->getDir(),
         ]);
 
         $output = $commandTester->getDisplay();
@@ -92,8 +92,8 @@ class LibraryCommandTest extends BaseTest
         $command = $application->find('test');
         $commandTester = new CommandTester($command);
         $commandTester->execute([
-            'command'  => $command->getName(),
-            '--dir'    => $this->getDir(),
+            'command' => $command->getName(),
+            '--dir'   => $this->getDir(),
         ]);
     }
 }

@@ -2,16 +2,10 @@
 
 namespace Railken\Amethyst\Cli;
 
-use Eloquent\Composer\Configuration\ConfigurationReader;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Question\Question;
-use Symfony\Component\Console\Output\NullOutput;
-use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Output\BufferedOutput;
-use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Process\Process;
 
 class GitUnstagedCommand extends Command
@@ -28,9 +22,9 @@ class GitUnstagedCommand extends Command
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
-    {       
+    {
         $command = 'git diff-index --quiet HEAD --';
+
         return $this->startProcess(Process::fromShellCommandline($command, $input->getOption('dir')));
     }
-
 }
