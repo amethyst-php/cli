@@ -31,18 +31,21 @@ class TestCommand extends Command
 
         $command->run(new ArrayInput([
             '--dir' => $input->getOption('dir'),
+            '--verbose' => $input->getOption('verbose')
         ]), $output);
 
         $command = $this->getApplication()->find('test:phpstan');
 
         $command->run(new ArrayInput([
             '--dir' => $input->getOption('dir'),
+            '--verbose' => $input->getOption('verbose')
         ]), $output);
 
         $command = $this->getApplication()->find('test:style');
 
         $command->run(new ArrayInput([
             '--dir' => $input->getOption('dir'),
+            '--verbose' => $input->getOption('verbose')
         ]), $output);
     }
 }
