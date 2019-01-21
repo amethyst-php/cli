@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4aae8835ba6e9e374bbac41a6d26c9b2",
+    "content-hash": "312d515633467f40cf24a6029f560cb0",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -939,16 +939,16 @@
         },
         {
             "name": "railken/amethyst-api",
-            "version": "v0.1.12",
+            "version": "v0.1.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/railken/amethyst-api.git",
-                "reference": "7e32610a1618a0614ad20d289cb6b124fdac781a"
+                "reference": "a1b834762bfccb82c7f939662f9cfd0bd25299d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/railken/amethyst-api/zipball/7e32610a1618a0614ad20d289cb6b124fdac781a",
-                "reference": "7e32610a1618a0614ad20d289cb6b124fdac781a",
+                "url": "https://api.github.com/repos/railken/amethyst-api/zipball/a1b834762bfccb82c7f939662f9cfd0bd25299d8",
+                "reference": "a1b834762bfccb82c7f939662f9cfd0bd25299d8",
                 "shasum": ""
             },
             "require": {
@@ -982,7 +982,7 @@
             "keywords": [
                 "laravel"
             ],
-            "time": "2019-01-14T02:07:26+00:00"
+            "time": "2019-01-20T20:56:12+00:00"
         },
         {
             "name": "railken/amethyst-common",
@@ -1093,16 +1093,16 @@
         },
         {
             "name": "railken/lem",
-            "version": "v3.2.31",
+            "version": "v3.2.34",
             "source": {
                 "type": "git",
                 "url": "https://github.com/railken/lem.git",
-                "reference": "077cfc7b95fe2c0fe349d40eebfcdc48fe3be000"
+                "reference": "d69554ff2be2d7ec7e3c28302e180bf755131deb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/railken/lem/zipball/077cfc7b95fe2c0fe349d40eebfcdc48fe3be000",
-                "reference": "077cfc7b95fe2c0fe349d40eebfcdc48fe3be000",
+                "url": "https://api.github.com/repos/railken/lem/zipball/d69554ff2be2d7ec7e3c28302e180bf755131deb",
+                "reference": "d69554ff2be2d7ec7e3c28302e180bf755131deb",
                 "shasum": ""
             },
             "require": {
@@ -1140,7 +1140,7 @@
             "keywords": [
                 "laravel"
             ],
-            "time": "2019-01-11T09:11:34+00:00"
+            "time": "2019-01-20T20:52:47+00:00"
         },
         {
             "name": "railken/search-query",
