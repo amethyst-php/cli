@@ -15,6 +15,7 @@ trait StartProcess
             echo $data;
         }
 
+        
         return $process->getExitCode();
     }
 }

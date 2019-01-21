@@ -22,4 +22,6 @@ $application->add(new \Railken\Amethyst\Cli\TestCommand());
 $application->add(new \Railken\Amethyst\Cli\TestPhpunitCommand());
 $application->add(new \Railken\Amethyst\Cli\TestPhpstanCommand());
 $application->add(new \Railken\Amethyst\Cli\FixerStyleCommand());
+$application->add(new \Railken\Amethyst\Cli\GitUnstagedCommand());
+$application->add(new \Railken\Amethyst\Cli\GitStatusCommand());
 $application->run();

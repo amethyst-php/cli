@@ -62,10 +62,12 @@ class DevStatusCommand extends Command
 
                 $errors += $travisCode = $this->testTravis($composer->name());
                 $errors += $phpunitCode = $this->testPhpunit($dir);
+                $errors += $gitCode = $this->testGit($dir);
 
                 $output->writeln(['']);
-                $output->writeln([sprintf("Phpunit Status: %s", $phpunitCode === 0 ? "<info>Ok</info>" : "<error>Error</error>")]);
-                $output->writeln([sprintf("Travis Status: %s", $travisCode === 0 ? "<info>Ok</info>" : "<error>Error</error>")]);
+                $output->writeln([sprintf("Phpunit: %s", $phpunitCode === 0 ? "<info>Ok</info>" : "<error>Error</error>")]);
+                $output->writeln([sprintf("Travis: %s", $travisCode === 0 ? "<info>Ok</info>" : "<error>Error</error>")]);
+                $output->writeln([sprintf("Git: %s", $gitCode === 0 ? "<info>Ok</info>" : "<error>Detected changes</error>")]);
                 $output->writeln(['']);
 
                 if ($errors !== 0) {
@@ -89,6 +91,14 @@ class DevStatusCommand extends Command
     public function testPhpunit(string $dir)
     {
         $command = $this->getApplication()->find('test:phpunit');
+        return  intval($command->run(new ArrayInput([
+            '--dir'  => $dir,
+        ]), new \Symfony\Component\Console\Output\BufferedOutput));
+    }
+
+    public function testGit(string $dir)
+    {
+        $command = $this->getApplication()->find('git:status');
         return  intval($command->run(new ArrayInput([
             '--dir'  => $dir,
         ]), new \Symfony\Component\Console\Output\BufferedOutput));
