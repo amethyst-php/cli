@@ -8,11 +8,7 @@ use {{ MyNamespace|classify }}\Managers\{{ EntityName|classify }}Manager;
 
 class {{ EntityName|pluralize|classify }}Controller extends RestManagerController
 {
-    use RestTraits\RestIndexTrait;
-    use RestTraits\RestShowTrait;
-    use RestTraits\RestCreateTrait;
-    use RestTraits\RestUpdateTrait;
-    use RestTraits\RestRemoveTrait;
+    use RestTraits\RestCommonTrait;
 
     /**
      * The class of the manager.
