@@ -4,7 +4,7 @@ import { container } from '@railken/quartz-core'
 export class {{ EntityName|classify }}ServiceProvider extends ServiceProvider {
   register() {
 
-    this.addRoutes(require('./../../routes/{{ EntityName|kebab }}.js'))
+    this.addRoutes('app', require('./../../routes/{{ EntityName|kebab }}.js'))
 
     this.addData({
       name: '{{ EntityName|kebab }}',

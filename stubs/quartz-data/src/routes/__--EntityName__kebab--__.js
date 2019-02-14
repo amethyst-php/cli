@@ -1,4 +1,4 @@
-const routes = {
+const routes = [{
   path: '{{ EntityName|kebab|pluralize }}',
   component: () => import('./../components/{{ EntityName|kebab }}/app'),
   children: [
@@ -13,5 +13,5 @@ const routes = {
       component: () => import('./../components/{{ EntityName|kebab }}/Page/show')
     }
   ]
-}
+}]
 module.exports = routes;
