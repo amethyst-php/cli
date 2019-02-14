@@ -10,7 +10,7 @@ import {{ EntityName|kebab }} from '../../app/Managers/{{ EntityName|classify }}
 export default {
   data () {
     return {
-      {{ EntityName|kebab }}: {{ EntityName|kebab }}
+      config: {{ EntityName|kebab }}
     }
   }
 }
