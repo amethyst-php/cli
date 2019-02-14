@@ -60,20 +60,27 @@ class Stubs
 
         foreach ($files as $file) {
             if (!is_dir($file)) {
-                $newfile = str_replace($source, '', $file);
 
-                $content = $this->twig->createTemplate(file_get_contents($file))->render($data);
-                $newfile = $this->twig->createTemplate($this->escapedFilename($newfile))->render($data);
+                try {
+                    $newfile = str_replace($source, '', $file);
 
-                $to = $directory.$newfile;
+                    $content = $this->twig->createTemplate(file_get_contents($file))->render($data);
+                    $newfile = $this->twig->createTemplate($this->escapedFilename($newfile))->render($data);
 
-                if (!file_exists(dirname($to))) {
-                    mkdir(dirname($to), 0755, true);
+                    $to = $directory.$newfile;
+
+                    if (!file_exists(dirname($to))) {
+                        mkdir(dirname($to), 0755, true);
+                    }
+
+                    file_put_contents($to, $content);
+
+                    $this->output->writeln(sprintf('<info>Generated: %s</info>', $to));
+                } catch (\Exception $e) {
+                    $this->output->writeln(sprintf('<error>Error with: %s</error>', $file));
+                    die();
+                    echo $e;
                 }
-
-                file_put_contents($to, $content);
-
-                $this->output->writeln(sprintf('<info>Generated: %s</info>', $to));
             }
         }
     }

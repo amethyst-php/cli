@@ -17,6 +17,8 @@ $application = new Application();
 $application->add(new \Railken\Amethyst\Cli\ProjectNewCommand());
 $application->add(new \Railken\Amethyst\Cli\LibraryInitializeCommand());
 $application->add(new \Railken\Amethyst\Cli\LibraryDataCommand());
+$application->add(new \Railken\Amethyst\Cli\QuartzLibraryInitializeCommand());
+$application->add(new \Railken\Amethyst\Cli\QuartzLibraryDataCommand());
 $application->add(new \Railken\Amethyst\Cli\DevStatusCommand());
 $application->add(new \Railken\Amethyst\Cli\DevFixerStyleCommand());
 $application->add(new \Railken\Amethyst\Cli\TestCommand());
