@@ -20,6 +20,7 @@ $application->add(new \Railken\Amethyst\Cli\LibraryDataCommand());
 $application->add(new \Railken\Amethyst\Cli\QuartzLibraryInitializeCommand());
 $application->add(new \Railken\Amethyst\Cli\QuartzLibraryDataCommand());
 $application->add(new \Railken\Amethyst\Cli\DevStatusCommand());
+$application->add(new \Railken\Amethyst\Cli\DevGitCommand());
 $application->add(new \Railken\Amethyst\Cli\DevFixerStyleCommand());
 $application->add(new \Railken\Amethyst\Cli\TestCommand());
 $application->add(new \Railken\Amethyst\Cli\TestPhpunitCommand());
