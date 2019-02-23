@@ -8,7 +8,7 @@ export class {{ EntityName|classify }}ServiceProvider extends ServiceProvider {
 
     this.addData({
       name: '{{ EntityName|kebab }}',
-      description: 'Configure your application',
+      icon: require('../../assets/{{ EntityName|kebab }}-icon.svg'),
       tags: ['data'],
       route: { name: '{{ EntityName|kebab|pluralize }}.index' },
     })

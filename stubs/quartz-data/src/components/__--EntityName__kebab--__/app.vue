@@ -5,12 +5,12 @@
 </template>
 <script>
 
-import {{ EntityName|kebab }} from '../../app/Managers/{{ EntityName|classify }}Manager'
+import {{ EntityName|classify }} from '../../app/Managers/{{ EntityName|classify }}Manager'
 
 export default {
   data () {
     return {
-      config: {{ EntityName|kebab }}
+      config: {{ EntityName|classify }}
     }
   }
 }
