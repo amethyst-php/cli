@@ -1,5 +1,13 @@
 {
   "$quartz": {
+    "__common": {
+      "attributes": {
+        "{{ EntityName|tableize }}_id": {
+          "label": "{{ EntityName|classify }}",
+          "description": "{{ EntityName|classify }}"
+        }
+      }
+    },
     "data": {
       "{{ EntityName|kebab }}": {
         "name": "{{ EntityName|classify }}",
