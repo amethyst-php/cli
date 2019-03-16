@@ -4,3 +4,5 @@ var
 \.env
 build/
 /composer\.lock
+
+phpunit\.xml

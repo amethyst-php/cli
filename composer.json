@@ -10,7 +10,7 @@
         "corneltek/getoptionkit": "^2.6",
         "symfony/console": "^4.2",
         "laravel/installer": "^2.0",
-        "rcrowe/twigbridge": "^0.9.6",
+        "twig/twig": "^2.0",
         "phpstan/phpstan": "0.*",
         "friendsofphp/php-cs-fixer": "2.*"
     },
