@@ -76,6 +76,7 @@ class DevStatusCommand extends Command
             ->setName('dev:status')
             ->setDescription('Check status libraries')
             ->addOption('dir', 'd', InputOption::VALUE_REQUIRED, 'Target directory', getcwd())
+            ->addOption('force', 'f', InputOption::VALUE_OPTIONAL, 'Force', false)
         ;
     }
 
@@ -112,7 +113,7 @@ class DevStatusCommand extends Command
                 $output->writeln([sprintf('Style: %s', $styleCode === 0 ? '<info>Ok</info>' : '<error>Error</error>')]);
                 $output->writeln([''], ['']);
 
-                if ($errors !== 0) {
+                if ($input->getOption('force') === false && $errors !== 0) {
                     $question = new ConfirmationQuestion('Shall we continue?');
 
                     if (!$helper->ask($input, $output, $question)) {
