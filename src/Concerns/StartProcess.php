@@ -11,7 +11,8 @@ trait StartProcess
     public function startProcess(InputInterface $input, OutputInterface $output, Process $process)
     {
         $process->setTty(Process::isTtySupported());
-
+        $process->setTimeout(3600);
+        
         if ($input->getOption('verbose') === false) {
             $process->disableOutput();
             $process->run();
