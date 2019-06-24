@@ -17,7 +17,8 @@
     "require-dev": {
         "phpunit/phpunit": "~7.1",
         "danielstjules/stringy": "~3.1.0",
-        "railken/amethyst-common": "0.1.*"
+        "railken/amethyst-common": "0.1.*",
+        "finwe/phpstan-faker": "^0.6.0"
     },
     "autoload": {
         "psr-4" : {
