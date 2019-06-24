@@ -52,13 +52,13 @@ class DevStatusCommand extends Command
         ]), new \Symfony\Component\Console\Output\BufferedOutput()));
     }
 
-    public function runFixStyle(string $dir)
+    public function testPhpstan(string $dir)
     {
-        $command = $this->getApplication()->find('fix:style');
+        $command = $this->getApplication()->find('test:phpstan');
 
-        $command->run(new ArrayInput([
+        return  intval($command->run(new ArrayInput([
             '--dir' => $dir,
-        ]), new \Symfony\Component\Console\Output\BufferedOutput());
+        ]), new \Symfony\Component\Console\Output\BufferedOutput()));
     }
 
     public function testStyle(string $dir)
@@ -104,10 +104,12 @@ class DevStatusCommand extends Command
 
                 $errors += $travisCode = $this->testTravis($composer->name());
                 $errors += $phpunitCode = $this->testPhpunit($dir);
+                $errors += $phpstanCode = $this->testPhpstan($dir);
                 $errors += $gitCode = $this->testGit($dir);
                 $errors += $styleCode = $this->testStyle($dir);
 
                 $output->writeln([sprintf('Phpunit: %s', $phpunitCode === 0 ? '<info>Ok</info>' : '<error>Error</error>')]);
+                $output->writeln([sprintf('Phpstan: %s', $phpstanCode === 0 ? '<info>Ok</info>' : '<error>Error</error>')]);
                 $output->writeln([sprintf('Travis: %s', $travisCode === 0 ? '<info>Ok</info>' : '<error>Error</error>')]);
                 $output->writeln([sprintf('Git: %s', $gitCode === 0 ? '<info>Ok</info>' : '<error>Detected changes</error>')]);
                 $output->writeln([sprintf('Style: %s', $styleCode === 0 ? '<info>Ok</info>' : '<error>Error</error>')]);
