@@ -1,5 +1,5 @@
 {
-    "name": "railken/cli-amethyst",
+    "name": "amethyst/cli",
     "keywords": ["laravel"],
     "license": "MIT",
     "require": {
@@ -18,16 +18,16 @@
     "require-dev": {
         "phpunit/phpunit": "~7.1",
         "danielstjules/stringy": "~3.1.0",
-        "railken/amethyst-common": "0.1.*"
+        "amethyst/common": "0.1.*"
     },
     "autoload": {
         "psr-4" : {
-            "Railken\\Amethyst\\Cli\\" : "src/"
+            "Amethyst\\Cli\\" : "src/"
         }
     },
     "autoload-dev": {
         "psr-4": { 
-            "Railken\\Amethyst\\Cli\\Tests\\": "tests/",
+            "Amethyst\\Cli\\Tests\\": "tests/",
             "Author\\Test\\": "var/cache/src"
         }
     },

@@ -2,7 +2,7 @@
 
 namespace {{ MyNamespace|classify }}\Managers;
 
-use Railken\Amethyst\Common\ConfigurableManager;
+use Amethyst\Common\ConfigurableManager;
 use Railken\Lem\Manager;
 
 class {{ EntityName|classify }}Manager extends Manager

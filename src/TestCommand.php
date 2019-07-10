@@ -1,6 +1,6 @@
 <?php
 
-namespace Railken\Amethyst\Cli;
+namespace Amethyst\Cli;
 
 use Laravel\Installer\Console\NewCommand as Command;
 use Symfony\Component\Console\Input\ArrayInput;

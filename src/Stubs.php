@@ -1,8 +1,8 @@
 <?php
 
-namespace Railken\Amethyst\Cli;
+namespace Amethyst\Cli;
 
-use Railken\Amethyst\Cli\Twig\AppExtension;
+use Amethyst\Cli\Twig\AppExtension;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class Stubs

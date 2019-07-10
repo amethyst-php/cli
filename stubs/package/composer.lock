@@ -938,16 +938,16 @@
             "time": "2017-10-23T01:57:42+00:00"
         },
         {
-            "name": "railken/amethyst-api",
+            "name": "amethyst/api",
             "version": "v0.1.19",
             "source": {
                 "type": "git",
-                "url": "https://github.com/railken/amethyst-api.git",
+                "url": "https://github.com/amethyst/api.git",
                 "reference": "6f5931c5564876905d0f2aa5ac989163a488ecbb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/railken/amethyst-api/zipball/6f5931c5564876905d0f2aa5ac989163a488ecbb",
+                "url": "https://api.github.com/repos/amethyst/api/zipball/6f5931c5564876905d0f2aa5ac989163a488ecbb",
                 "reference": "6f5931c5564876905d0f2aa5ac989163a488ecbb",
                 "shasum": ""
             },
@@ -966,13 +966,13 @@
             "extra": {
                 "laravel": {
                     "providers": [
-                        "Railken\\Amethyst\\Providers\\ApiServiceProvider"
+                        "Amethyst\Providers\\ApiServiceProvider"
                     ]
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Railken\\Amethyst\\": "src/"
+                    "Amethyst\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -985,23 +985,23 @@
             "time": "2019-02-07T16:49:53+00:00"
         },
         {
-            "name": "railken/amethyst-common",
+            "name": "amethyst/common",
             "version": "v0.1.13",
             "source": {
                 "type": "git",
-                "url": "https://github.com/railken/amethyst-common.git",
+                "url": "https://github.com/amethyst/common.git",
                 "reference": "c57062254cf6d324529b543c98f8e942a5c72106"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/railken/amethyst-common/zipball/c57062254cf6d324529b543c98f8e942a5c72106",
+                "url": "https://api.github.com/repos/amethyst/common/zipball/c57062254cf6d324529b543c98f8e942a5c72106",
                 "reference": "c57062254cf6d324529b543c98f8e942a5c72106",
                 "shasum": ""
             },
             "require": {
                 "doctrine/inflector": "^1.3",
                 "php": ">=7.1",
-                "railken/amethyst-api": "0.1.*",
+                "amethyst/api": "0.1.*",
                 "railken/bag": "^1.2",
                 "railken/lem": "^3.2"
             },
@@ -1012,7 +1012,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Railken\\Amethyst\\Common\\": "src/"
+                    "Amethyst\Common\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",

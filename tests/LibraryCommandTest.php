@@ -1,6 +1,6 @@
 <?php
 
-namespace Railken\Amethyst\Tests;
+namespace Amethyst\Tests;
 
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -12,9 +12,9 @@ class LibraryCommandTest extends BaseTest
     {
         $application = new Application();
 
-        $application->add(new \Railken\Amethyst\Cli\LibraryDataCommand());
-        $application->add(new \Railken\Amethyst\Cli\LibraryInitializeCommand());
-        $application->add(new \Railken\Amethyst\Cli\TestCommand());
+        $application->add(new \Amethyst\Cli\LibraryDataCommand());
+        $application->add(new \Amethyst\Cli\LibraryInitializeCommand());
+        $application->add(new \Amethyst\Cli\TestCommand());
 
         $command = $application->find('lib:init');
         $commandTester = new CommandTester($command);

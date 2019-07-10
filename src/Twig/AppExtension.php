@@ -1,6 +1,6 @@
 <?php
 
-namespace Railken\Amethyst\Cli\Twig;
+namespace Amethyst\Cli\Twig;
 
 use Doctrine\Common\Inflector\Inflector;
 use Twig\Extension\AbstractExtension;

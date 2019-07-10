@@ -14,21 +14,21 @@ use Symfony\Component\Console\Application;
 
 $application = new Application();
 
-$application->add(new \Railken\Amethyst\Cli\ProjectNewCommand());
-$application->add(new \Railken\Amethyst\Cli\LibraryInitializeCommand());
-$application->add(new \Railken\Amethyst\Cli\LibraryDataCommand());
-$application->add(new \Railken\Amethyst\Cli\QuartzLibraryInitializeCommand());
-$application->add(new \Railken\Amethyst\Cli\QuartzLibraryDataCommand());
-$application->add(new \Railken\Amethyst\Cli\DevStatusCommand());
-$application->add(new \Railken\Amethyst\Cli\DevGitCommand());
-$application->add(new \Railken\Amethyst\Cli\DevFixerStyleCommand());
-$application->add(new \Railken\Amethyst\Cli\TestCommand());
-$application->add(new \Railken\Amethyst\Cli\TestPhpunitCommand());
-$application->add(new \Railken\Amethyst\Cli\TestPhpstanCommand());
-$application->add(new \Railken\Amethyst\Cli\TestStyleCommand());
-$application->add(new \Railken\Amethyst\Cli\FixerStyleCommand());
-$application->add(new \Railken\Amethyst\Cli\GitUnstagedCommand());
-$application->add(new \Railken\Amethyst\Cli\GitStatusCommand());
-$application->add(new \Railken\Amethyst\Cli\GitUpdateCommand());
+$application->add(new \Amethyst\Cli\ProjectNewCommand());
+$application->add(new \Amethyst\Cli\LibraryInitializeCommand());
+$application->add(new \Amethyst\Cli\LibraryDataCommand());
+$application->add(new \Amethyst\Cli\QuartzLibraryInitializeCommand());
+$application->add(new \Amethyst\Cli\QuartzLibraryDataCommand());
+$application->add(new \Amethyst\Cli\DevStatusCommand());
+$application->add(new \Amethyst\Cli\DevGitCommand());
+$application->add(new \Amethyst\Cli\DevFixerStyleCommand());
+$application->add(new \Amethyst\Cli\TestCommand());
+$application->add(new \Amethyst\Cli\TestPhpunitCommand());
+$application->add(new \Amethyst\Cli\TestPhpstanCommand());
+$application->add(new \Amethyst\Cli\TestStyleCommand());
+$application->add(new \Amethyst\Cli\FixerStyleCommand());
+$application->add(new \Amethyst\Cli\GitUnstagedCommand());
+$application->add(new \Amethyst\Cli\GitStatusCommand());
+$application->add(new \Amethyst\Cli\GitUpdateCommand());
 $application->run();
 

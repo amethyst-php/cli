@@ -1,6 +1,6 @@
 <?php
 
-namespace Railken\Amethyst\Cli;
+namespace Amethyst\Cli;
 
 use Eloquent\Composer\Configuration\ConfigurationReader;
 use Symfony\Component\Console\Command\Command;

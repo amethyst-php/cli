@@ -4,7 +4,7 @@ namespace {{ MyNamespace|classify }}\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Railken\Amethyst\Common\ConfigurableModel;
+use Amethyst\Common\ConfigurableModel;
 use Railken\Lem\Contracts\EntityContract;
 
 class {{ EntityName|classify }} extends Model implements EntityContract
