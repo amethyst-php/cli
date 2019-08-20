@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3f6eb9a1489baff9e773f69da200a25c",
+    "content-hash": "74048c7c7aa061743ad9801b4bd45a65",
     "packages": [
         {
             "name": "amethyst/api",
@@ -3403,57 +3403,6 @@
         }
     ],
     "packages-dev": [
-        {
-            "name": "amethyst/foo",
-            "version": "v0.1.8",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/amethyst-php/foo.git",
-                "reference": "06a72725fd81867c81b42789bc188f5225b633ce"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/amethyst-php/foo/zipball/06a72725fd81867c81b42789bc188f5225b633ce",
-                "reference": "06a72725fd81867c81b42789bc188f5225b633ce",
-                "shasum": ""
-            },
-            "require": {
-                "amethyst/common": "0.1.*",
-                "php": ">=7.1"
-            },
-            "require-dev": {
-                "orchestra/testbench": "3.*",
-                "phpunit/phpunit": "~7.1"
-            },
-            "type": "library",
-            "extra": {
-                "amethyst": {
-                    "package": "foo",
-                    "namespace": "Railken\\Amethyst"
-                },
-                "laravel": {
-                    "providers": [
-                        "Amethyst\\Providers\\FooServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Amethyst\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "keywords": [
-                "amethyst",
-                "amethyst-foo",
-                "foo",
-                "laravel"
-            ],
-            "time": "2019-07-14T11:09:01+00:00"
-        },
         {
             "name": "doctrine/instantiator",
             "version": "1.2.0",

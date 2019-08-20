@@ -8,8 +8,8 @@
         "amethyst/common": "0.1.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "~7.0",
-        "orchestra/testbench": "3.6.*"
+        "phpunit/phpunit": "7.*",
+        "orchestra/testbench": "3.*"
     },
     "autoload": {
         "psr-4" : {
