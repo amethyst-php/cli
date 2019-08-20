@@ -33,6 +33,9 @@ class LibraryInitializeCommand extends Command
 
         $helper = $this->getHelper('question');
 
+        $question = new Question(sprintf('Organization name <comment>[%s]</comment>: ', 'Amethyst'), 'Amethyst');
+        $organization = $helper->ask($input, $output, $question);
+
         $package = basename(getcwd());
         $question = new Question(sprintf('Package name <comment>[%s]</comment>: ', $package), $package);
         $package = $helper->ask($input, $output, $question);
@@ -42,7 +45,7 @@ class LibraryInitializeCommand extends Command
         $question = new Question(sprintf('Author <comment>[%s]</comment>: ', $user), $user);
         $author = $helper->ask($input, $output, $question);
 
-        $namespace = ucfirst($author).'\\Amethyst';
+        $namespace = ucfirst($organization);
         $question = new Question(sprintf('Namespace <comment>[%s]</comment>: ', $namespace), $namespace);
         $namespace = $helper->ask($input, $output, $question);
 
@@ -51,6 +54,7 @@ class LibraryInitializeCommand extends Command
         $prefix = $helper->ask($input, $output, $question);*/
 
         $stubs->generateNewFiles([
+            'Organization' => $organization,
             'MyNamespace' => $namespace,
             'PackageName' => $package,
             'Author'      => $author,

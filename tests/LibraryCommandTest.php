@@ -15,13 +15,17 @@ class LibraryCommandTest extends BaseTest
         $application->add(new \Amethyst\Cli\LibraryDataCommand());
         $application->add(new \Amethyst\Cli\LibraryInitializeCommand());
         $application->add(new \Amethyst\Cli\TestCommand());
+        $application->add(new \Amethyst\Cli\TestPhpunitCommand());
+        $application->add(new \Amethyst\Cli\TestPhpstanCommand());
+        $application->add(new \Amethyst\Cli\TestStyleCommand());
 
         $command = $application->find('lib:init');
         $commandTester = new CommandTester($command);
         $commandTester->setInputs([
+            'amethyst',
             'test',
             'author',
-            'Author\\Test',
+            'Amethyst\\Test',
         ]);
         $commandTester->execute([
             'command' => $command->getName(),
@@ -32,10 +36,8 @@ class LibraryCommandTest extends BaseTest
 
         $this->assertContains('LICENSE', $output);
         $this->assertContains('README.md', $output);
-        $this->assertContains('artisan', $output);
         $this->assertContains('composer.json', $output);
-        $this->assertContains('phpstan.neon', $output);
-        $this->assertContains('phpunit.xml', $output);
+        $this->assertContains('phpunit.xml.dist', $output);
         $this->assertContains('.env.example', $output);
         $this->assertContains('.travis.yml', $output);
         $this->assertContains('tests/BaseTest', $output);
