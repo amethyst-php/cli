@@ -33,8 +33,11 @@ class LibraryInitializeCommand extends Command
 
         $helper = $this->getHelper('question');
 
-        $question = new Question(sprintf('Organization name <comment>[%s]</comment>: ', 'Amethyst'), 'Amethyst');
+        $question = new Question(sprintf('Organization name <comment>[%s]</comment>: ', 'amethyst'), 'amethyst');
         $organization = $helper->ask($input, $output, $question);
+
+        $question = new Question(sprintf('Organization slug <comment>[%s]</comment>: ', 'amethyst-php'), 'amethyst-php');
+        $organizationSlug = $helper->ask($input, $output, $question);
 
         $package = basename(getcwd());
         $question = new Question(sprintf('Package name <comment>[%s]</comment>: ', $package), $package);
@@ -55,6 +58,7 @@ class LibraryInitializeCommand extends Command
 
         $stubs->generateNewFiles([
             'Organization' => $organization,
+            'OrganizationSlug' => $organizationSlug,
             'MyNamespace' => $namespace,
             'PackageName' => $package,
             'Author'      => $author,
@@ -63,7 +67,7 @@ class LibraryInitializeCommand extends Command
         file_put_contents($input->getOption('dir').'/.gitignore', implode("\n", [
             'vendor/',
             'var/',
-            '\.php_cs\.cache',
+            'phpunit.xml',
             '\.env',
             'composer\.lock',
             'build/',

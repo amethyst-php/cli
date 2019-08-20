@@ -23,6 +23,7 @@ class LibraryCommandTest extends BaseTest
         $commandTester = new CommandTester($command);
         $commandTester->setInputs([
             'amethyst',
+            'amethyst-php',
             'test',
             'author',
             'Amethyst\\Test',
