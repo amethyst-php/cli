@@ -57,11 +57,11 @@ class LibraryInitializeCommand extends Command
         $prefix = $helper->ask($input, $output, $question);*/
 
         $stubs->generateNewFiles([
-            'Organization' => $organization,
+            'Organization'     => $organization,
             'OrganizationSlug' => $organizationSlug,
-            'MyNamespace' => $namespace,
-            'PackageName' => $package,
-            'Author'      => $author,
+            'MyNamespace'      => $namespace,
+            'PackageName'      => $package,
+            'Author'           => $author,
         ], __DIR__.'/../stubs/package', $input->getOption('dir'));
 
         file_put_contents($input->getOption('dir').'/.gitignore', implode("\n", [

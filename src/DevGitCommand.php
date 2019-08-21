@@ -2,7 +2,6 @@
 
 namespace Amethyst\Cli;
 
-use Eloquent\Composer\Configuration\ConfigurationReader;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
@@ -49,7 +48,6 @@ class DevGitCommand extends Command
         $helper = $this->getHelper('question');
 
         foreach (glob($input->getOption('dir').'/*') as $dir) {
-
             if (is_dir($dir)) {
                 $errors = 0;
 

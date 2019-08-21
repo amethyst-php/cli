@@ -12,7 +12,7 @@ trait StartProcess
     {
         $process->setTty(Process::isTtySupported());
         $process->setTimeout(3600);
-        
+
         if ($input->getOption('verbose') === false) {
             $process->disableOutput();
             $process->run();

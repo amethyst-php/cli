@@ -60,7 +60,6 @@ class Stubs
 
         foreach ($files as $file) {
             if (!is_dir($file)) {
-
                 try {
                     $newfile = str_replace($source, '', $file);
 
