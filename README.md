@@ -1,6 +1,6 @@
 # Skeleton Amethyst Tool
 
-[![Build Status](https://travis-ci.org/amethyst/cli.svg?branch=master)](https://travis-ci.org/amethyst/cli)
+[![Build Status](https://travis-ci.org/amethyst-php/cli.svg?branch=master)](https://travis-ci.org/amethyst-php/cli)
 
 A package has been created to speed-up the development. Install the package globally.
 
