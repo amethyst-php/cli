@@ -29,7 +29,7 @@ class TestPhpstanCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $targets = ['app', 'tests', 'src'];
+        $targets = ['app', 'src'];
         $errors = 0;
 
         foreach ($targets as $target) {
