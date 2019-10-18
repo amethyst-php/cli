@@ -5,4 +5,4 @@ parameters:
 
 includes:
     - phpstan-faker.neon
-    - ../vendor/nunomaduro/larastan/extension.neon
+    - %rootDir%/../../nunomaduro/larastan/extension.neon
