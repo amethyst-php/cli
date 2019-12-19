@@ -11,7 +11,7 @@ use Symfony\Component\Console\Question\Question;
 
 class LibraryDataCommand extends Command
 {
-    protected static $defaultName = 'lib:data';
+    protected static $defaultName = 'make:data';
 
     /**
      * @var \Eloquent\Composer\Configuration\ConfigurationReader
@@ -59,15 +59,31 @@ class LibraryDataCommand extends Command
 
         $composer = $this->composerReader->read($composerPath);
 
+        $type = $composer->type();
+
+        $output->writeln(sprintf('<info>Detecting type: %s</info>', $type));
+
+        if (!in_array($type, ['project', 'library'])) {
+            $output->writeln(sprintf('<error>Only project or library are allowed, detected: %s</error>', $type));
+        }
+
         $question = new Question(sprintf('Name data (e.g. Book): '), 'Book');
         $data = $helper->ask($input, $output, $question);
 
-        $package = $composer->extra()->amethyst->package;
-        $namespace = $composer->extra()->amethyst->namespace;
+        if ($type === 'project') {
+            $package = 'app';
+            $namespace = 'App';
+        }
+
+        if ($type === 'library') {
+            $package = $composer->extra()->amethyst->package;
+            $namespace = $composer->extra()->amethyst->namespace;
+        }
 
         $stubs->generateNewFiles([
             'MyNamespace' => $namespace,
             'PackageName' => $package,
+            'src' => $type === 'project' ? 'app' : 'src',
             'EntityName'  => $data,
         ], __DIR__.'/../stubs/data', $input->getOption('dir'));
     }
