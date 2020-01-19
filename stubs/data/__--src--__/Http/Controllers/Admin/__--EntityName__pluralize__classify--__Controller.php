@@ -2,8 +2,8 @@
 
 namespace {{ MyNamespace|classify }}\Http\Controllers\Admin;
 
-use Amethyst\Api\Http\Controllers\RestManagerController;
-use Amethyst\Api\Http\Controllers\Traits as RestTraits;
+use Amethyst\Core\Http\Controllers\RestManagerController;
+use Amethyst\Core\Http\Controllers\Traits as RestTraits;
 use {{ MyNamespace|classify }}\Managers\{{ EntityName|classify }}Manager;
 
 class {{ EntityName|pluralize|classify }}Controller extends RestManagerController

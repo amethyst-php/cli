@@ -12,7 +12,7 @@ class LibraryCommandTest extends BaseTest
     {
         $application = new Application();
 
-        $application->add(new \Amethyst\Cli\LibraryDataCommand());
+        $application->add(new \Amethyst\Cli\MakeDataCommand());
         $application->add(new \Amethyst\Cli\LibraryInitializeCommand());
         $application->add(new \Amethyst\Cli\TestCommand());
         $application->add(new \Amethyst\Cli\TestPhpunitCommand());
@@ -47,7 +47,7 @@ class LibraryCommandTest extends BaseTest
 
         $this->assertEquals(true, file_exists($this->getDir().'/.gitignore'));
 
-        $command = $application->find('lib:data');
+        $command = $application->find('make:data');
         $commandTester = new CommandTester($command);
         $commandTester->setInputs(['', '']);
         $commandTester->execute([

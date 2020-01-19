@@ -2,7 +2,7 @@
 
 namespace {{ MyNamespace|classify }}\Tests\Http\Admin;
 
-use Amethyst\Api\Support\Testing\TestableBaseTrait;
+use Amethyst\Core\Support\Testing\TestableBaseTrait;
 use {{ MyNamespace|classify }}\Fakers\{{ EntityName|classify }}Faker;
 use {{ MyNamespace|classify }}\Tests\BaseTest;
 

@@ -1,12 +1,13 @@
 # amethyst-{{ PackageName|kebab }}
 
-[![Build Status](https://travis-ci.org/{{ OrganizationSlug }}/{{ PackageName|kebab }}.svg?branch=master)](https://travis-ci.org/{{ OrganizationSlug }}/{{ PackageName|kebab }})
+
+[![Action Status](https://github.com/{{ OrganizationSlug }}/{{ PackageName|kebab }}/workflows/test/badge.svg)](https://github.com/{{ OrganizationSlug }}/{{ PackageName|kebab }}/actions)
 
 [Amethyst](https://github.com/amethyst-php/amethyst) package.
 
 # Requirements
 
-PHP 7.1 and later.
+PHP 7.2 and later.
 
 ## Installation
 
@@ -24,4 +25,4 @@ The package will automatically register itself.
 
 ## Testing
 
-Configure the .env file before launching `./vendor/bin/phpunit`
+Configure your phpunit.xml file before launching `./vendor/bin/phpunit`
