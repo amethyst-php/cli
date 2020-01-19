@@ -16,7 +16,7 @@ $application = new Application();
 
 $application->add(new \Amethyst\Cli\ProjectNewCommand());
 $application->add(new \Amethyst\Cli\LibraryInitializeCommand());
-$application->add(new \Amethyst\Cli\LibraryDataCommand());
+$application->add(new \Amethyst\Cli\MakeDataCommand());
 $application->add(new \Amethyst\Cli\DevStatusCommand());
 $application->add(new \Amethyst\Cli\DevGitCommand());
 $application->add(new \Amethyst\Cli\DevFixerStyleCommand());

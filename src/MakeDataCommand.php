@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 
-class LibraryDataCommand extends Command
+class MakeDataCommand extends Command
 {
     protected static $defaultName = 'make:data';
 
