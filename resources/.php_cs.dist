@@ -14,8 +14,6 @@ return PhpCsFixer\Config::create()
   		],
         'ordered_imports' => true,
         'ordered_class_elements' => true,
-        'no_superfluous_phpdoc_tags' => [
-            'only_untyped' => false
-        ] 
+        'no_superfluous_phpdoc_tags' => false,
     ])
 ;
