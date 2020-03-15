@@ -13,7 +13,7 @@
         "twig/twig": "^2.0",
         "phpstan/phpstan": "*",
         "friendsofphp/php-cs-fixer": "2.*",
-        "nunomaduro/larastan": "^0.3.17"
+        "nunomaduro/larastan": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "*",
