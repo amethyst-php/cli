@@ -11,9 +11,8 @@
         "symfony/console": "^4.2",
         "laravel/installer": "^2.0",
         "twig/twig": "^2.0",
-        "phpstan/phpstan": "0.*",
+        "phpstan/phpstan": "*",
         "friendsofphp/php-cs-fixer": "2.*",
-        "finwe/phpstan-faker": "^0.6.0",
         "nunomaduro/larastan": "^0.3.17"
     },
     "require-dev": {
