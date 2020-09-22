@@ -37,7 +37,7 @@ class TestPhpstanCommand extends Command
                 $command = sprintf(
                     'phpstan analyze %s --level=max -c %s',
                     $target,
-                     __DIR__.'/../resources/phpstan.neon'
+                    __DIR__.'/../resources/phpstan.neon'
                 );
 
                 $errors += $this->startProcess($input, $output, Process::fromShellCommandline($command, $input->getOption('dir')));
