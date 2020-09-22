@@ -70,9 +70,9 @@ class LibraryCommandTest extends BaseTest
             'APP_NAME'    => 'Laravel',
             'DB_HOST'     => '127.0.0.1',
             'DB_PORT'     => '3306',
-            'DB_DATABASE' => 'homestead',
-            'DB_USERNAME' => 'homestead',
-            'DB_PASSWORD' => 'secret',
+            'DB_DATABASE' => 'laravel',
+            'DB_USERNAME' => 'root',
+            'DB_PASSWORD' => 'password',
         ];
 
         // copy($this->getDir().'/.env.example', $this->getDir().'/.env');
