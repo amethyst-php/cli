@@ -28,7 +28,9 @@ class LibraryInitializeCommand extends Command
         $output->writeln(['<info>Initializing a new package...</info>', '']);
 
         if (!$input->getOption('dir')) {
-            return $output->writeln('<error>No directory found</error>');
+            $output->writeln('<error>No directory found</error>');
+
+            return 1;
         }
 
         $helper = $this->getHelper('question');
@@ -72,5 +74,7 @@ class LibraryInitializeCommand extends Command
             'composer\.lock',
             'build/',
         ]));
+
+        return 0;
     }
 }

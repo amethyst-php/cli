@@ -41,5 +41,7 @@ class FixerStyleCommand extends Command
                 $this->startProcess($input, $output, Process::fromShellCommandline($command, $input->getOption('dir')));
             }
         }
+
+        return 0;
     }
 }

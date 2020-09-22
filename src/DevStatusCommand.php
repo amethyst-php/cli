@@ -85,7 +85,9 @@ class DevStatusCommand extends Command
         $stubs = new Stubs($output);
 
         if (!$input->getOption('dir')) {
-            return $output->writeln('<error>No directory found</error>');
+            $output->writeln('<error>No directory found</error>');
+
+            return 1;
         }
 
         $helper = $this->getHelper('question');
@@ -124,5 +126,7 @@ class DevStatusCommand extends Command
                 }
             }
         }
+
+        return 0;
     }
 }

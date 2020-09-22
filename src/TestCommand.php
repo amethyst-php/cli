@@ -2,7 +2,7 @@
 
 namespace Amethyst\Cli;
 
-use Laravel\Installer\Console\NewCommand as Command;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -47,5 +47,7 @@ class TestCommand extends Command
             '--dir'     => $input->getOption('dir'),
             '--verbose' => $input->getOption('verbose'),
         ]), $output);
+
+        return 0;
     }
 }

@@ -31,5 +31,7 @@ class GitStatusCommand extends Command
         return intval($command->run(new ArrayInput([
             '--dir' => $input->getOption('dir'),
         ]), $output));
+
+        return 0;
     }
 }

@@ -44,7 +44,9 @@ class MakeDataCommand extends Command
         $output->writeln(['<info>Adding migrations, tests, models, etc...</info>', '']);
 
         if (!$input->getOption('dir')) {
-            return $output->writeln('<error>No directory found</error>');
+            $output->writeln('<error>No directory found</error>');
+
+            return 1;
         }
 
         $helper = $this->getHelper('question');
@@ -54,7 +56,9 @@ class MakeDataCommand extends Command
         $composerPath = $helper->ask($input, $output, $question);
 
         if (!file_exists($composerPath)) {
-            return $output->writeln(sprintf('<error>File not found: %s</error>', $composerPath));
+            $output->writeln(sprintf('<error>File not found: %s</error>', $composerPath));
+
+            return 1;
         }
 
         $composer = $this->composerReader->read($composerPath);
@@ -86,5 +90,7 @@ class MakeDataCommand extends Command
             'src' => $type === 'project' ? 'app' : 'src',
             'EntityName'  => $data,
         ], __DIR__.'/../stubs/data', $input->getOption('dir'));
+
+        return 0;
     }
 }
