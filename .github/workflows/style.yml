@@ -28,5 +28,6 @@ jobs:
         with:
           commit_message: Apply style changes
           branch: ${{ github.ref }}
+          file_pattern: "*.php"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
