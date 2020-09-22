@@ -66,25 +66,9 @@ class LibraryCommandTest extends BaseTest
         $this->assertStringContainsString('src/Repositories/BookRepository', $output);
         $this->assertStringContainsString('database/migrations/0000_00_00_000000_create_books_table', $output);
 
-        $vars = [
-            'APP_NAME'    => 'Laravel',
-            'DB_HOST'     => '127.0.0.1',
-            'DB_PORT'     => '3306',
-            'DB_DATABASE' => 'laravel',
-            'DB_USERNAME' => 'root',
-            'DB_PASSWORD' => 'password',
-        ];
-
-        // copy($this->getDir().'/.env.example', $this->getDir().'/.env');
-
-        array_walk($vars, function (&$a, $b) {
-            $a = "$b='".getenv($b, $a)."'";
-        });
-        $vars = implode(' ', $vars);
-
         $process = Process::fromShellCommandline(implode(' && ', [
             'composer install',
-            $vars.' ./vendor/bin/phpunit',
+            './vendor/bin/phpunit',
         ]), $this->getDir());
         $process->mustRun(null);
 
