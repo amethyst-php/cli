@@ -1,6 +1,6 @@
 # Skeleton Amethyst Tool
 
-[![Actions Status](https://github.com/amethyst-php/cli/workflows/test/badge.svg)](https://github.com/amethyst-php/cli/actions)
+[![Actions Status](https://github.com/amethyst-php/cli/workflows/Test/badge.svg)](https://github.com/amethyst-php/cli/actions)
 
 A package has been created to speed-up the development. Install the package globally.
 
