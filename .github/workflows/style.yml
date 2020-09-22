@@ -3,9 +3,11 @@ on:
   pull_request:
     paths:
       - '**.php'
+      - '**.yml'
   push:
     paths:
       - '**.php'
+      - '**.yml'
 jobs:
   style:
     runs-on: ubuntu-latest
@@ -28,6 +30,6 @@ jobs:
         with:
           commit_message: Apply style changes
           branch: ${{ github.ref }}
-          file_pattern: "*.php"
+          file_pattern: src/*.php tests/*.php
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
